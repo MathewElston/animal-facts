@@ -1,1 +1,1 @@
-fakeURL = "https://jsonplaceholder.typicode.com/todos/";
+testAPI = "https://jsonplaceholder.typicode.com/todos/";
