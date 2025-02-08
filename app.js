@@ -17,5 +17,3 @@ async function fetchAnimals(args) {
     console.log(error);
   }
 }
-
-fetchAnimals("name=cheetah");
