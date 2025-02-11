@@ -43,5 +43,3 @@ async function fetchImages(args) {
     console.log(error);
   }
 }
-
-dbTest();
