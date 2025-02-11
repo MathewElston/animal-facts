@@ -2,6 +2,8 @@
 var db = {
     favoritesKey : "af_favorites",
     historyKey : "af_history",
+    maxFavorites : 20,
+    maxHistory: 20,
     localStorageAccess : false, // whether or not we can access localStorage
     favorites : [],
     history : [],
@@ -18,6 +20,7 @@ var db = {
         }
         catch (e) {
             localStorageAccess = false;
+            console.error(e);
             return (
             e instanceof DOMException &&
             e.name === "QuotaExceededError" &&
@@ -26,18 +29,19 @@ var db = {
             storage.length !== 0
             );
         }
-        
     },
 
     loadFavorites : function() {
         if (!localStorageAccess || localStorage.getItem(favoritesKey) === null) { return false; }
-    
-
+        // TO-DO: check integrity of array (dupes)
+        this.favorites = localStorage.getItem(favoritesKey).JSON();
+        return true;
     },
 
     saveFavorites : function() {
         if (!this.localStorageAccess) { return false; }
-
+        localStorage.setItem(favoritesKey, JSON.stringify(this.favorites));
+        return true;
     },
 
     // add a new favorite animal, will automatically take a timestamp as well
@@ -59,11 +63,15 @@ var db = {
 
     loadHistory : function() {
         if (!localStorageAccess || localStorage.getItem(historyKey) === null) { return false; }
+        // TO-DO: check integrity of array (dupes)
+        this.favorites = localStorage.getItem(historyKey).JSON();
+        return true;
     },
 
     saveHistory : function() {
         if (!localStorageAccess) { return false; }
-        
+        localStorage.setItem(historyKey, JSON.stringify(this.history));
+        return true;
     },
 
     // add to user history, will automatically take a timestamp as well
@@ -82,10 +90,19 @@ var db = {
     },
 
     // clear all user history
+    // clears both the localStorage history key and the history array
+    // returns true if successful and false if localStorage cant be accessed
     clearHistory : function () {
         if (!localStorageAccess) { return false; }
-
-        this.checkStorage();
-        return true;
+        try {
+            this.history = [];
+            localStorage.setItem(historyKey, "");
+            this.checkStorage();
+            return true;
+        }
+        catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 }
