@@ -1,6 +1,10 @@
 // this object effectively acts as a namespace for our database methods and properties
 var db = {
+    favoritesKey : "af_favorites",
+    historyKey : "af_history",
     localStorageAccess : false, // whether or not we can access localStorage
+    favorites : [],
+    history : [],
 
     // checks whether localStorage is available for use
     // returnes true if avaiable, and false if not
@@ -25,6 +29,17 @@ var db = {
         
     },
 
+    loadFavorites : function() {
+        if (!localStorageAccess || localStorage.getItem(favoritesKey) === null) { return false; }
+    
+
+    },
+
+    saveFavorites : function() {
+        if (!this.localStorageAccess) { return false; }
+
+    },
+
     // add a new favorite animal, will automatically take a timestamp as well
     // returns true if successful and false if not
     addFavorite : function(name, desc, image) {
@@ -40,6 +55,15 @@ var db = {
 
         this.checkStorage();
         return true;
+    },
+
+    loadHistory : function() {
+        if (!localStorageAccess || localStorage.getItem(historyKey) === null) { return false; }
+    },
+
+    saveHistory : function() {
+        if (!localStorageAccess) { return false; }
+        
     },
 
     // add to user history, will automatically take a timestamp as well
