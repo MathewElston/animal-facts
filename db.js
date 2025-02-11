@@ -1,6 +1,8 @@
+//TO-DO make commentts nice :)
+
 // this object effectively acts as a namespace for our database methods and properties
 var db = {
-    favoritesKey : "af_favorites",
+    favoritesKey : "af_favorites", // TO-DO const syntax
     historyKey : "af_history",
     maxFavorites : 20,
     maxHistory: 20,
@@ -32,15 +34,16 @@ var db = {
     },
 
     loadFavorites : function() {
-        if (!localStorageAccess || localStorage.getItem(favoritesKey) === null) { return false; }
+        if (!localStorageAccess || localStorage.getItem(this.favoritesKey) === null) { return false; }
         // TO-DO: check integrity of array (dupes)
-        this.favorites = localStorage.getItem(favoritesKey).JSON();
+        this.favorites = localStorage.getItem(this.favoritesKey).JSON();
         return true;
     },
 
     saveFavorites : function() {
         if (!this.localStorageAccess) { return false; }
-        localStorage.setItem(favoritesKey, JSON.stringify(this.favorites));
+        localStorage.setItem(this.favoritesKey, JSON.stringify(this.favorites));
+        this.checkStorage();
         return true;
     },
 
@@ -49,6 +52,7 @@ var db = {
     addFavorite : function(name, desc, image) {
         if (!localStorageAccess) { return false; }
 
+        this.checkStorage();
     },
 
     // remove a favorite animal by name
@@ -62,15 +66,16 @@ var db = {
     },
 
     loadHistory : function() {
-        if (!localStorageAccess || localStorage.getItem(historyKey) === null) { return false; }
+        if (!localStorageAccess || localStorage.getItem(this.historyKey) === null) { return false; }
         // TO-DO: check integrity of array (dupes)
-        this.favorites = localStorage.getItem(historyKey).JSON();
+        this.history = JSON.parse(localStorage.getItem(this.historyKey));
         return true;
     },
 
     saveHistory : function() {
         if (!localStorageAccess) { return false; }
-        localStorage.setItem(historyKey, JSON.stringify(this.history));
+        localStorage.setItem(this.historyKey, JSON.stringify(this.history));
+        this.checkStorage();
         return true;
     },
 
@@ -78,7 +83,20 @@ var db = {
     // returns true if successful and false if not
     addHistory : function(name, desc, image) {
         if (!localStorageAccess) { return false; }
+        // add a new element to the array with our history data
+        this.history.push({
+            name : name,
+            desc : desc,
+            image : image,
+            time: Date.now()
+        });
 
+        // if the size is greater than max remove the oldest element
+        if (this.history.length > this.maxHistory) {
+            this.history.shift();
+        }
+        this.saveHistory();
+        this.checkStorage();
     },
 
     // remove from user history by name
@@ -93,10 +111,11 @@ var db = {
     // clears both the localStorage history key and the history array
     // returns true if successful and false if localStorage cant be accessed
     clearHistory : function () {
+        console.log("here");
         if (!localStorageAccess) { return false; }
         try {
             this.history = [];
-            localStorage.setItem(historyKey, "");
+            localStorage.setItem(this.historyKey, "");
             this.checkStorage();
             return true;
         }
@@ -106,3 +125,4 @@ var db = {
         }
     }
 }
+
