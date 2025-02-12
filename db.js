@@ -36,16 +36,19 @@ var db = {
     },
 
     loadFavorites : function() {
-        if (!this.localStorageAccess || localStorage.getItem(this.favoritesKey) === null) { return false; }
-        this.favorites = localStorage.getItem(this.favoritesKey).JSON();
-        
+        if (!this.localStorageAccess ||
+            localStorage.getItem(this.favoritesKey) === null ||
+            localStorage.getItem(this.favoritesKey) === "") {
+            return false;
+        }
+
+        this.favorites = JSON.parse(localStorage.getItem(this.favoritesKey));
         // TO-DO: check integrity of array (dupes)
         return true;
     },
 
     saveFavorites : function() {
         if (!this.localStorageAccess) { return false; }
-        console.log("here");
         localStorage.setItem(this.favoritesKey, JSON.stringify(this.favorites));
         this.checkStorage();
         return true;
@@ -78,6 +81,7 @@ var db = {
     removeFavorite : function(name) {
         var elementRemoved = false; // true if an element was found and removed
         for (var fCnt = 0; fCnt > this.favorites.length; fCnt++) {
+            console.log("fCnt " + fCnt);
             if (this.favorites[fCnt].name === name) { // loop through the entire array just in case there are dupes
                 this.favorites.splice(fCnt, 1); // remove the named element
                 fCnt--; // decrement the count to correct for removed item
@@ -90,7 +94,12 @@ var db = {
     },
 
     loadHistory : function() {
-        if (!this.localStorageAccess || localStorage.getItem(this.historyKey) === null) { return false; }
+        if (!this.localStorageAccess ||
+            localStorage.getItem(this.historyKey) === null ||
+            localStorage.getItem(this.historyKey) === "") {
+                return false;
+            }
+
         this.history = JSON.parse(localStorage.getItem(this.historyKey));
         // TO-DO: check integrity of array (dupes)
         return true;
