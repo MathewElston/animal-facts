@@ -11,8 +11,8 @@ db = new class {
     #history = [];
 
     // generic accessors
-    get favoritesKey() { return this.#favoritesKey; }
-    get historyKey() { return this.#historyKey; }
+    //get favoritesKey() { return this.#favoritesKey; } // should not ever need to be accessed outside class
+    //get historyKey() { return this.#historyKey; } // should not ever need to be accessed outside class
     get maxFavorites() { return this.#maxFavorites; }
     get maxHistory() { return this.#maxHistory; }
     get favorites() { return this.#favorites; }
