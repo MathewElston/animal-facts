@@ -22,3 +22,7 @@ async function createFactCard(parentId, title, text) {
     parent.appendChild(child);
   }
 }
+
+function testCard() {
+    createFactCard("fact-cards-row","Locations",placeholderData.locations[0]);
+}
