@@ -20,8 +20,8 @@ db = new class {
 
     // checks whether localStorage is available for use
     // returnes true if avaiable, and false if not
-    // also sets the #localStorageAccess flag
-    // will split this up later if we ever need to check storage without setting the flag
+    // also sets the #localStorageAccess flag effectively making this an accessor
+    // will create a localStorageAccess getter if needed later
     checkStorage = function() {
         try {
             localStorage.setItem("TestKey", "TestValue");
@@ -42,6 +42,8 @@ db = new class {
         }
     }
 
+    // TO-DO consider setting favorites key to "" when not loaded
+    // consider returning true when favorites was ""
     loadFavorites = function() {
         if (!this.#localStorageAccess ||
             localStorage.getItem(this.#favoritesKey) === null ||
@@ -54,7 +56,7 @@ db = new class {
         return true;
     }
 
-    saveFavorites = function() {
+    #saveFavorites = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#favoritesKey, JSON.stringify(this.#favorites));
         this.checkStorage();
@@ -77,7 +79,7 @@ db = new class {
         while (this.#favorites.length > this.#maxFavorites) {
             this.#favorites.shift();
         }
-        this.saveFavorites();
+        this.#saveFavorites();
         this.checkStorage();
     }
 
@@ -88,13 +90,13 @@ db = new class {
     removeFavorite = function(name) {
         var elementRemoved = false; // true if an element was found and removed
         for (var fCnt = 0; fCnt < this.#favorites.length; fCnt++) {
-            if (this.#favorites[fCnt].name === name) { // loop through the entire array just in case there are dupes
+            if (this.#favorites[fCnt].name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
                 this.#favorites.splice(fCnt, 1); // remove the named element
                 fCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
             }
         }
-        this.saveFavorites();
+        this.#saveFavorites();
         this.checkStorage();
         return elementRemoved;
     }
@@ -111,7 +113,7 @@ db = new class {
         return true;
     }
 
-    saveHistory = function() {
+    #saveHistory = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#historyKey, JSON.stringify(this.#history));
         this.checkStorage();
@@ -134,7 +136,7 @@ db = new class {
         while (this.#history.length > this.#maxHistory) {
             this.#history.shift();
         }
-        this.saveHistory();
+        this.#saveHistory();
         this.checkStorage();
     }
 
@@ -143,13 +145,13 @@ db = new class {
     removeHistory = function (name) {
         var elementRemoved = false; // true if an element was found and removed
         for (var hCnt = 0; hCnt < this.#history.length; hCnt++) {
-            if (this.#history[hCnt].name === name) { // loop through the entire array just in case there are dupes
+            if (this.#history[hCnt].name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
                 this.#history.splice(hCnt, 1); // remove the named element
                 hCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
             }
         }
-        this.saveHistory();
+        this.#saveHistory();
         this.checkStorage();
         return elementRemoved;
     }
