@@ -1,4 +1,4 @@
-//TO-DO make commentts nice :)
+//TO-DO make comments nice :)
 
 // this object effectively acts as a namespace for our database methods and properties
 // TO-DO maybe swap db to a class and make favorites and history private with accessors
@@ -80,7 +80,7 @@ var db = {
     // they also run checkStorage again to see if there's now free space to store new information
     removeFavorite : function(name) {
         var elementRemoved = false; // true if an element was found and removed
-        for (var fCnt = 0; fCnt > this.favorites.length; fCnt++) {
+        for (var fCnt = 0; fCnt < this.favorites.length; fCnt++) {
             console.log("fCnt " + fCnt);
             if (this.favorites[fCnt].name === name) { // loop through the entire array just in case there are dupes
                 this.favorites.splice(fCnt, 1); // remove the named element
@@ -136,7 +136,7 @@ var db = {
     // returns true if history was removed and false if no such history
     removeHistory : function (name) {
         var elementRemoved = false; // true if an element was found and removed
-        for (var hCnt = 0; hCnt > this.history.length; hCnt++) {
+        for (var hCnt = 0; hCnt < this.history.length; hCnt++) {
             if (this.history[hCnt].name === name) { // loop through the entire array just in case there are dupes
                 this.history.splice(hCnt, 1); // remove the named element
                 hCnt--; // decrement the count to correct for removed item
