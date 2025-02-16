@@ -1,6 +1,32 @@
-#banner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('horse.jpg'); 
-    background-size: cover;
-    background-position: center;
-    padding: 100px;
+
+#main-body {
+    background-color: #d5e4d9;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the full viewport height */
+}
+
+#main-header{
+    text-align: center;
+    /*background-color: #1b4557;*/
+    background-color: #A3D1C6;
+    padding: 10px;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1; /* Pushes the footer to the bottom when there is little content */
+}
+
+#main-footer{
+    text-align: center;
+    font-size: 18px;
+    background-color: #d5e4d9;
+    color: black;
+    padding: 10px;
 }
