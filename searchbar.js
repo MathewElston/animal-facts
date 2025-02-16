@@ -11,6 +11,7 @@ async function searchAnimal() {
     
     resultHeader.innerText = firstResult;
     resultDiv.appendChild(resultHeader);
+    displayPicture(firstResult);
     console.log(animals[0].name);
     // Then works on going through the animal 
     // resultDiv.innerText = '';

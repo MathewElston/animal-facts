@@ -4,7 +4,7 @@ async function displayPicture(animal) {
     const data = await fetchImages("query="+animal); 
     const imageSource = data.photos[0].src.original;
     const img = document.createElement("img");
-    const photoParent = document.getElementById('photo-container');
+    const photoParent = document.getElementById('results');
 
     img.src = imageSource;
     img.width = 500;
