@@ -65,15 +65,14 @@ db = new class {
 
     // add a new favorite animal, will automatically take a timestamp as well
     // returns true if successful and false if not
-    addFavorite = function(name, desc, image) {
+    addFavorite = function(animalData) {
         if (!this.#localStorageAccess) { return false; }
+
+        // add/update the timestamp for the animal data
+        animalData["time"] = Date.now();
+
         // add a new element to the array with our favorites data
-        this.#favorites.push({
-            name: name,
-            desc: desc,
-            image: image,
-            time: Date.now()
-        });
+        this.#favorites.push(animalData);
 
         // if the size is greater than max remove the oldest element
         while (this.#favorites.length > this.#maxFavorites) {
@@ -122,15 +121,13 @@ db = new class {
 
     // add to user history, will automatically take a timestamp as well
     // returns true if successful and false if not
-    addHistory = function(name, desc, image) {
+    addHistory = function(animalData) {
         if (!this.#localStorageAccess) { return false; }
+        // add/update the timestamp for the animal data
+        animalData["time"] = Date.now();
+
         // add a new element to the array with our history data
-        this.#history.push({
-            name : name,
-            desc : desc,
-            image : image,
-            time: Date.now()
-        });
+        this.#history.push(animalData);
 
         // if the size is greater than max remove the oldest element
         while (this.#history.length > this.#maxHistory) {
@@ -177,12 +174,12 @@ db = new class {
     // functions for filling the history and favorites storage with dummy data from #testData
     DEV_fillDummyHistory = function (amount) {
         for (var ii = 0; ii < amount; ii++) {
-            addHistory(this.#testData[Math.floor(Math.random() * this.testData.length)])
+            this.addHistory(this.#testData[Math.floor(Math.random() * this.#testData.length)])
         }
     }
 
     DEV_fillDummyFavorites = function(amount) {
-        addFavorite(this.#testData[Math.floor(Math.random() * this.testData.length)])
+        this.addFavorite(this.#testData[Math.floor(Math.random() * this.#testData.length)])
     }
     /*************************************************************/
     /******************** TEST DATA STARTS HERE ******************/
