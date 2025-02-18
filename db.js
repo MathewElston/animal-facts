@@ -89,7 +89,7 @@ db = new class {
     removeFavorite = function(name) {
         var elementRemoved = false; // true if an element was found and removed
         for (var fCnt = 0; fCnt < this.#favorites.length; fCnt++) {
-            if (this.#favorites[fCnt].name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
+            if (this.#favorites[fCnt].animal.name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
                 this.#favorites.splice(fCnt, 1); // remove the named element
                 fCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
@@ -142,7 +142,7 @@ db = new class {
     removeHistory = function (name) {
         var elementRemoved = false; // true if an element was found and removed
         for (var hCnt = 0; hCnt < this.#history.length; hCnt++) {
-            if (this.#history[hCnt].name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
+            if (this.#history[hCnt].animal.name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
                 this.#history.splice(hCnt, 1); // remove the named element
                 hCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
