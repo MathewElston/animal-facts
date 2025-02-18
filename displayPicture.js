@@ -6,6 +6,8 @@ async function displayPicture(animal) {
     const img = document.createElement("img");
     const photoParent = document.getElementById('photo-container');
     img.src = imageSource;
+    img.width = 500;
+    img.height = 350;
     photoParent.appendChild(img);
     console.log(data.photos[0]);
 }
