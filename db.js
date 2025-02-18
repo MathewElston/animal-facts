@@ -173,13 +173,17 @@ db = new class {
 
     // functions for filling the history and favorites storage with dummy data from #testData
     DEV_fillDummyHistory = function (amount) {
+        console.warn("DEV_fillDummyHistory() used. This method is for testing purposes only.");
         for (var ii = 0; ii < amount; ii++) {
             this.addHistory(this.#testData[Math.floor(Math.random() * this.#testData.length)])
         }
     }
 
     DEV_fillDummyFavorites = function(amount) {
-        this.addFavorite(this.#testData[Math.floor(Math.random() * this.#testData.length)])
+        console.warn("DEV_fillDummyFavorites() used. This method is for testing purposes only.");
+        for (var ii = 0; ii < amount; ii++) {
+            this.addFavorite(this.#testData[Math.floor(Math.random() * this.#testData.length)])
+        }
     }
     /*************************************************************/
     /******************** TEST DATA STARTS HERE ******************/
