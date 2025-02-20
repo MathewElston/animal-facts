@@ -3,7 +3,7 @@ async function displayAnimalResults(parentId, animalResults) {
     const parent = document.getElementById(parentId);
 
     for (const animal in animalResults) {
-        displayFactCard(parent,animal.name, animal.characteristics);
+        const 
 
     }
 }
