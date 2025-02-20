@@ -1,7 +1,7 @@
-/*
+/** 
 * @param {string} parentId - The id of the parent element to attach the 
 * @param {Array} animalResults - An array of the animals data.
-* @param {Functon} onSelect - A callback function to handle the hovered animal card
+* @param {function} onSelect - A callback function to handle the hovered animal card
 */
 async function displayAnimalResults(parentId, animalResults, onSelect) {
     // Search results are displayed
