@@ -1,6 +1,16 @@
 #banner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('horse.jpg'); 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('horse.jpg');
     background-size: cover;
     background-position: center;
     padding: 100px;
+}
+
+.card-hover {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.card-hover:hover {
+    transform: scale(1.03);
+    border-color: orange;
 }
