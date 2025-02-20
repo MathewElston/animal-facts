@@ -1,4 +1,9 @@
-async function displayAnimalResults(parentId, animalResults) {
+/*
+* @param {string} parentId - The id of the parent element to attach the 
+* @param {Array} animalResults - An array of the animals data.
+* @param {Functon} onSelect - A callback function to handle the hovered animal card
+*/
+async function displayAnimalResults(parentId, animalResults, onSelect) {
     // Search results are displayed
     const parent = document.getElementById(parentId);
 
@@ -28,12 +33,11 @@ async function displayAnimalResults(parentId, animalResults) {
         cardDiv.appendChild(cardBody);
         colDiv.appendChild(cardDiv);
         parent.appendChild(colDiv);
-        console.log(animal);
 
         // Make the card clickable
         cardDiv.style.cursor = "pointer";
         cardDiv.addEventListener("click", () => {
-            console.log("do something");
+            onSelect(animal);
         })
     }
 }
