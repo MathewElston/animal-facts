@@ -1,27 +1,11 @@
-async function searchAnimal() {
-    //User's input
-    const searchInput = document.getElementById('searchInput').value;
+async function displayAnimalResults(parentId, animalResults) {
     // Search results are displayed
-    const resultDiv = document.getElementById('results');
+    const parent = document.getElementById(parentId);
 
-    const resultHeader = document.createElement("h3");
-    //Fetches animals 
-    const firstResult = animals[0].name;
-    
-    resultHeader.innerText = firstResult;
-    resultDiv.appendChild(resultHeader);
-    displayPicture(firstResult);
-    console.log(animals[0].name);
-    // Then works on going through the animal 
-    // resultDiv.innerText = '';
-    // animals.forEach(animal => {
-    //     const animalDiv = document.createElement('div');
-    //     animalDiv.innerText = `
-    //         <h3>${animal.name}</h3>
-    //     `;
-    //     resultDiv.appendChild(animalDiv);
-    //     console.log(animal.name);
-    // });
+    for (const animal in animalResults) {
+        displayFactCard(parent,animal.name, animal.characteristics);
+
+    }
 }
 
 async function getAnimalResults(searchInput) {

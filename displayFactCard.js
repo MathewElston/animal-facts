@@ -1,7 +1,7 @@
 const placeholderData = {
   locations: ["Africa", "Asia", "Eurasia"],
 };
-async function createFactCard(parentId, title, text) {
+async function displayFactCard(parentId, title, text) {
   const parent = document.getElementById(parentId);
   const colDiv = document.createElement("div");
   const cardDiv = document.createElement("div");
@@ -26,5 +26,5 @@ async function createFactCard(parentId, title, text) {
 }
 
 function testCard() {
-    createFactCard("fact-cards-row","Locations",placeholderData.locations[0]);
+    displayFactCard("fact-cards-row","Locations",placeholderData.locations[0]);
 }
