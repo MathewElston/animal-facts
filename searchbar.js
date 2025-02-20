@@ -6,7 +6,6 @@ async function searchAnimal() {
 
     const resultHeader = document.createElement("h3");
     //Fetches animals 
-    const animals = await fetchAnimals("name="+searchInput);
     const firstResult = animals[0].name;
     
     resultHeader.innerText = firstResult;
@@ -23,4 +22,10 @@ async function searchAnimal() {
     //     resultDiv.appendChild(animalDiv);
     //     console.log(animal.name);
     // });
+}
+
+async function getAnimalResults(searchInput) {
+    const animalResults = await fetchAnimals("name="+searchInput);
+    return animalResults
+
 }
