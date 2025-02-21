@@ -4,7 +4,7 @@ async function displayPicture(animal) {
     const data = await fetchImages("query="+animal); 
     const imageSource = data.photos[0].src.original// Gets the first index
     const img = document.createElement("img");
-    const photoParent = document.getElementById('photo-container').addEventListener("click", placeholder);//grabs the photo comntainer element
+    const photoParent = document.getElementById('photo-container').addEventListener("click", searchAnimal);//grabs the photo comntainer element when search bar loads, well maybe
        
     img.src = imageSource;
     img.width = 500;//adjusts the width of the image
