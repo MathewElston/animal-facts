@@ -3,12 +3,12 @@
 function createFavoritesBar() {
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("favorites_sidebar");
-    const title = document.createElement("div");
+    //const title = document.createElement("div");
 
     parent.innerHTML = "";
 
-    title.textContent = "Favorites:";
-    parent.appendChild(title);
+    //title.textContent = "Favorites:";
+    //parent.appendChild(title);
 
     if (db.favorites.length === 0) {
         parent.textContent = "You dont have any favorites!";
@@ -19,19 +19,23 @@ function createFavoritesBar() {
     for (let i = 0; i < db.favorites.length; i++) {
 
         //Create variables for a new div and paragraph
-        const div = document.createElement("div");
-        const paragraph = document.createElement("p");
+        const li = document.createElement("li");
+        li.setAttribute("class", "list-group-item");
+
+
+        const href = document.createElement("href");
+        href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
         //Set the innertext of the paragraph to the current element
-        paragraph.innerText = db.favorites[i].animal.name;
+        href.innerText = db.favorites[i].animal.name;
 
         //TO-DO replace this style of adding the button later
-        paragraph.innerHTML += " <button name=\"" + db.favorites[i].animal.name + "\" onclick=\"deleteFavorite(this)\">💀</button><br>";
+        href.innerHTML += " <button name=\"" + db.favorites[i].animal.name + "\" onclick=\"deleteFavorite(this)\">💀</button><br>";
 
         //Append the new paragraph to the new div and the div to the HTML doc
-        div.appendChild(paragraph);
+        li.appendChild(href);
         //paragraph.appendChild(delButton);
-        parent.appendChild(div);
+        parent.appendChild(li);
 
     }
 }
