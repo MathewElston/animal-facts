@@ -1,23 +1,12 @@
-testData = "Cheetah";
-
-async function displayPicture(animal) {
-    const data = await fetchImages("query="+animal); 
-    const imageSource = data.photos[0].src.original;// Gets the first index
+async function displayPicture(parentid,animal,width,height) {
+    const imageSource = animal.src.original;
     const img = document.createElement("img");
-    const photoParent = document.getElementById('photo-container');
+    const parent = document.getElementById(parentid);
 
     img.src = imageSource;
-    img.style.width = "500px";//adjusts the width of the image
-    img.style.height = '350PX';//adjusts the height of the image
-   photoParent.appendChild(img);
-    console.log(data.photos[0]);
-    
+    img.width = width;
+    img.height = height;
+    img.classList.add("rounded");
+    parent.appendChild(img);
+   
 }
-
-async function stuff()
-{
-    const data = await fetchImages("query="+animal); 
-    const photoParent = document.getElementById('photo-container').addEventListener("load", searchAnimal);
-return data;
-}
-    

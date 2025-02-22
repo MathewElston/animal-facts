@@ -43,3 +43,18 @@ async function fetchImages(args) {
     console.log(error);
   }
 }
+
+const imagebutton = document.getElementById("picturebutton");
+imagebutton.onclick = async()=> 
+{
+    const image = await fetchImages("query=cheetah");
+    console.log("afterfetch");
+    console.log(image.photos[0]);
+   await displayPicture("photo-container", image.photos[0], width = 500, height = 350);
+
+}
+
+
+
+  
+
