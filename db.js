@@ -68,6 +68,13 @@ db = new class {
     addFavorite = function(animalData) {
         if (!this.#localStorageAccess) { return false; }
 
+        // remove existing entries (will only remove first)
+        var dupeIndex = this.#favorites.findIndex((e) => { return e.animal.name === animalData.animal.name; });
+
+        if (dupeIndex >= 0) {
+            this.#favorites.splice(dupeIndex, 1);
+        }
+
         // add/update the timestamp for the animal data
         animalData["time"] = Date.now();
 
@@ -177,11 +184,12 @@ db = new class {
     // type arguments are name and time
     // direction arguments are ascending and descending
     sortFavorites = function (type, direction = "ascending") {
-        // invert the sorting direction if we're sorting descending
+        // check direction parameter validity
         if (direction !== "ascending" && direction !== "descending") {
             return false;
         }
 
+        // invert the sorting direction if we're sorting descending
         var directionMult = (direction === "ascending" ? 1 : -1);
 
         // sort the array based on the parameters sent
@@ -198,7 +206,7 @@ db = new class {
                 return (a.time > b.time ? 1 : -1) * directionMult;
             })
         }
-        else {
+        else { // invalid type parameter
             return false;
         }
         
@@ -208,6 +216,10 @@ db = new class {
     }
 
     moveFavoriteUp = function(name){
+        // if the named animal isnt in favorites or is at the top of the list
+        if (this.#favorites.findIndex((e) => { e.animal.name === name; }) <= 0) {
+            return false;
+        }
 
         return true;
     }
