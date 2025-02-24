@@ -217,7 +217,7 @@ db = new class {
 
     moveFavoriteUp = function(name){
         // get the index of the animal to move
-        animalIndex = this.#favorites.findIndex((e) => { e.animal.name === name; });
+        var animalIndex = this.#favorites.findIndex((e) => { e.animal.name.toUpperCase() === name.toUpperCase(); });
 
         // if the named animal isnt in favorites or is at the top of the list
         if (animalIndex <= 0) {
@@ -233,7 +233,7 @@ db = new class {
 
     moveFavoriteDown = function(name) {
         // get the index of the animal to move
-        animalIndex = this.#favorites.findIndex((e) => { e.animal.name === name; });
+        var animalIndex = this.#favorites.findIndex((e) => { e.animal.name.toUpperCase() === name.toUpperCase; });
 
         // if the named animal isnt in favorites or is at the bottom of the list
         if (animalIndex < 0 || animalIndex >= this.#favorites.length) {
