@@ -12,7 +12,8 @@ if (db.favorites.length === 0) {
 createHistoryBar();
 createFavoritesBar();
 
-const imagebutton = document.getElementById("picturebutton");
+// Test
+/* const imagebutton = document.getElementById("picturebutton");
 imagebutton.onclick = async()=> 
 {
     const image = await fetchImages("query=cheetah");
@@ -20,14 +21,20 @@ imagebutton.onclick = async()=>
     console.log(image.photos[0]);
    await displayPicture("photo-container", image.photos[0], width = 500, height = 350);
 
-}
+} */
 
 const searchButton = document.getElementById("btnSearchAnimals");
 let animalData;
 let selectedAnimal;
+let animalPictures;
 
 searchButton.onclick = async () => {
     const userInput = getAnimalInput("searchInput");
     animalData = await getAnimalResults(userInput);
-    await displayAnimalResults("resultsContainer", animalData, (animal)=> console.log("Animal selected:" ,animal));
+    await displayAnimalResults("resultsContainer", animalData, async (animal)=> {
+        console.log("Animal Clicked: ", animal);
+        animalPictures = await fetchImages("query="+animal.name);
+        searchAnimal(animal,animalPictures);
+
+    });
 }

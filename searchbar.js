@@ -3,7 +3,7 @@ async function getAnimalResults(searchInput) {
     return animalResults
 }
 
-async function createMainCard(parentId, animal, animalPictures) {
+async function createMainCard(animal, animalPictures) {
     // Search results are displayed to main picture card
     const resultImg= document.getElementById('results');
     const resultHeader = document.getElementById('animalName');
@@ -87,8 +87,8 @@ async function searchAnimal(animal,animalPictures) {
     // firstResult = animals[0];
     
     //call function to display maincard
-    createMainCard(firstResult);
+    await createMainCard(animal,animalPictures);
 
     //call function to display fact cards
-    createFactCards(firstResult);
+    await createFactCards(animal,animalPictures);
 }
