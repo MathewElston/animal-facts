@@ -216,15 +216,33 @@ db = new class {
     }
 
     moveFavoriteUp = function(name){
+        // get the index of the animal to move
+        animalIndex = this.#favorites.findIndex((e) => { e.animal.name === name; });
+
         // if the named animal isnt in favorites or is at the top of the list
-        if (this.#favorites.findIndex((e) => { e.animal.name === name; }) <= 0) {
+        if (animalIndex <= 0) {
             return false;
         }
+
+        var toMove = this.#favorites[animalIndex];
+        this.#favorites[animalIndex] = this.#favorites[animalIndex + 1];
+        this.#favorites[animalIndex - 1] = toMove;
 
         return true;
     }
 
     moveFavoriteDown = function(name) {
+        // get the index of the animal to move
+        animalIndex = this.#favorites.findIndex((e) => { e.animal.name === name; });
+
+        // if the named animal isnt in favorites or is at the bottom of the list
+        if (animalIndex < 0 || animalIndex >= this.#favorites.length) {
+            return false;
+        }
+
+        var toMove = this.#favorites[animalIndex];
+        this.#favorites[animalIndex] = this.#favorites[animalIndex - 1];
+        this.#favorites[animalIndex + 1] = toMove;
 
         return true;
     }
