@@ -178,7 +178,7 @@ db = new class {
     // direction arguments are ascending and descending
     sortFavorites = function (type, direction = "ascending") {
         // invert the sorting direction if we're sorting descending
-        if (direction !== "ascending" || direction !== "descending") {
+        if (direction !== "ascending" && direction !== "descending") {
             return false;
         }
 
@@ -190,7 +190,7 @@ db = new class {
                  return (a.animal.name.localeCompare(b.animal.name)) * directionMult;
             })
         }
-        if (type === "time") {
+        else if (type === "time") {
             this.#favorites.sort((a, b) => {
                 if (a.time === b.time) {
                     return 0;
@@ -203,6 +203,7 @@ db = new class {
         }
         
         // TO-DO implement callbacks to refresh relevant lists
+        this.#saveFavorites();
         return true;
     }
 
