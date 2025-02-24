@@ -228,6 +228,7 @@ db = new class {
         this.#favorites[animalIndex] = this.#favorites[animalIndex + 1];
         this.#favorites[animalIndex - 1] = toMove;
 
+        this.#saveFavorites();
         return true;
     }
 
@@ -244,6 +245,7 @@ db = new class {
         this.#favorites[animalIndex] = this.#favorites[animalIndex - 1];
         this.#favorites[animalIndex + 1] = toMove;
 
+        this.#saveFavorites();
         return true;
     }
 
