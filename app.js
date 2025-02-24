@@ -20,5 +20,5 @@ let selectedAnimal;
 searchButton.onclick = async () => {
     const userInput = getAnimalInput("searchInput");
     animalData = await getAnimalResults(userInput);
-    await displayAnimalResults("results", animalData, (animal)=> console.log("Animal selected:" ,animal));
+    await displayAnimalResults("resultsContainer", animalData, (animal)=> console.log("Animal selected:" ,animal));
 }

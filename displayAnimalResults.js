@@ -24,7 +24,6 @@ async function displayAnimalResults(parentId, animalResults, onSelect) {
         cardText.classList.add("card-text");
 
         cardHeader.innerText = animal.name;
-        cardTitle.innerText = "Animal Slogan";
         cardText.innerText = animal.characteristics.slogan;
 
         cardBody.appendChild(cardTitle);

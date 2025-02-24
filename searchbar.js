@@ -1,7 +1,7 @@
 async function getAnimalResults(searchInput) {
     const animalResults = await fetchAnimals("name="+searchInput);
     return animalResults
-
+}
 async function createMainCard(animal) {
     // Search results are displayed to main picture card
     const resultImg= document.getElementById('results');

@@ -54,9 +54,13 @@
     <!-- search bar section -->        
             <div class="input-group mb-3 pb-5">
               <input name="searchInput" id="searchInput" type="text" class="form-control" placeholder="Search for an animal... ">
-              <button id="btnSearchAnimals" onclick="searchAnimal()" class="btn btn-outline-secondary" type="button">Search</button>
+              <button id="btnSearchAnimals" class="btn btn-outline-secondary" type="button">Search</button>
             </div>
 
+    <!-- Results Section-->
+            <div class="container row" id="resultsContainer">
+
+            </div>
     <!-- large image section -->
             <div class="pt-5 pb-5 justify-content-center">
 
@@ -172,12 +176,14 @@
     </div>
 
       <!-- scripts -->
-    <script src="db.js" defer></script>
+      <script src="db.js" defer></script>
+    <script src="displayAnimalResults.js" defer></script>
+    <script src="getAnimalInput.js" defer></script>
     <script src="fetch.js" defer></script>
     <script src="searchbar.js" defer></script>
     <script src="history_sidebar.js" defer></script>
     <script src="favorites_sidebar.js" defer></script>
-    <script src="createFactCard.js" defer></script>
+    <script src="displayFactCard.js" defer></script>
     <script src ="displayPicture.js" defer> </script>
     <script src="app.js" defer></script>
     <script
