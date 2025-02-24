@@ -11,45 +11,173 @@
     rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
     crossorigin="anonymous">
+
     <link rel="stylesheet" href="styles.css" />
-
-        <!-- banner/header -->
-        <section id="banner" class="bg-image text-light text-center">
-          <div class="container">
-            <h1 class="display-4 fw-bold text-shadow">Animal Encyclopedia</h1>
-            <p class="lead">A place to get your animal facts</p>
-          </div>
-      </section>
-
   </head>
   <body>
 
-    <div id="bodyContainer" class="container">
-      <!-- search bar-->
-       <div class="container text-center">
-         <input type="text" name="searchInput" id="searchInput" placeholder="Search for an animal... ">
-         <button class = "btn btn-info" id="btnSearchAnimals"> Explore!</button>
-          <div class="row align-items-center" id="results">
-          </div>
-       </div>
-      <!-- fact cards -->
-      <div class="container text-center" id="fact-cards-container">
-        <div class="row align-items-center" id="fact-cards-row"></div>
-        <button onclick="testCard()">Create Card</button>
-      </div>
-      <!-- history bar -->
-        <div class=container id="history_sidebar">
-          <button onclick="createHistoryBar(animals)">History Sidebar</button>
+    <!-- banner/header -->
+    <section id="banner" class="bg-image text-light text-center">
+        <div class="container">
+          <h1 class="display-4 fw-bold text-shadow">Animal Encyclopedia</h1>
+          <p class="lead">A place to get your animal facts</p>
         </div>
+    </section>
+
+    <!-- content -->
+    <div class="container pt-5 ps-0 pe-0">
+
+      <div class="row">
+    <!-- history sidebar -->
+        <div class="col ps-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">History</h5>
+              <p class="card-text">
+
+                <ul class="list-group list-group-flush" id="history_sidebar">
+                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">An item</a></li>
+                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A second item</a></li>
+                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A third item</a></li>
+                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A fourth item</a></li>
+                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">And a fifth one</a></li>
+                </ul>
+
+              </p>
+            </div>
+          </div> 
+        </div>
+        
+    <!-- center -->      
+          <div class="col col-lg-8 ps-5 pe-5 ">
+            
+    <!-- search bar section -->        
+            <div class="input-group mb-3 pb-5">
+              <input name="searchInput" id="searchInput" type="text" class="form-control" placeholder="Search for an animal... ">
+              <button id="btnSearchAnimals" onclick="searchAnimal()" class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+
+    <!-- large image section -->
+            <div class="pt-5 pb-5 justify-content-center">
+
+                <div class="card mb-3" style="max-width: 1200px;">
+                  <div class="row g-0">
+                    <div class="col-md-7">
+                      <figure>
+                        <img id="results" src="" class="img-fluid rounded-start" alt="text" >
+                        <figcaption><small id="photographerName" class="text-body-secondary">Last updated 3 mins ago</small></figcaption>
+                      </figure>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <h5 id="animalName" class="card-title">Card title</h5>
+                          </div>
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star align-top" viewBox="0 0 16 16">
+                              <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                            </svg>
+                          </div>
+                <!-- Card text -->
+                        </div>
+                        <p id="slogan" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+
+    <!-- fact cards -- the class='col' divs empty for testing -->
+            <div  id="factCardSection" class="row row-cols-1 row-cols-md-3 g-4">
+
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+   
+
+    <!-- Favorites sidebar -->
+        <div class="col ps-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Favorites</h5>
+              <p class="card-text">
+        
+              <ul class="list-group list-group-flush" id="favorites_sidebar">
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">An
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A second
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A third
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A fourth
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">And a
+                    fifth one</a></li>
+              </ul>
+        
+              </p>
+            </div>
+          </div>
+        </div>
+        
+
+        </div>
+      </div>
     </div>
 
       <!-- scripts -->
-    <script src="getAnimalInput.js" defer></script>
+    <script src="db.js" defer></script>
     <script src="fetch.js" defer></script>
     <script src="searchbar.js" defer></script>
-    <script  src="history_sidebar.js" defer></script>
-    <script src="db.js" defer></script>
-    <script src="displayFactCard.js" defer></script>
+    <script src="history_sidebar.js" defer></script>
+    <script src="favorites_sidebar.js" defer></script>
+    <script src="createFactCard.js" defer></script>
     <script src ="displayPicture.js" defer> </script>
     <script src="app.js" defer></script>
     <script
