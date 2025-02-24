@@ -170,6 +170,51 @@ db = new class {
         }
     }
 
+    // SORTING FUNCTIONS
+
+    // the sorting functions will complete a sort IN PLACE and will return true if successful
+    // and false if not successful
+    // type arguments are name and time
+    // direction arguments are ascending and descending
+    sortFavorites = function (type, direction = "ascending") {
+        // invert the sorting direction if we're sorting descending
+        if (direction !== "ascending" || direction !== "descending") {
+            return false;
+        }
+
+        var directionMult = (direction === "ascending" ? 1 : -1);
+
+        // sort the array based on the parameters sent
+        if (type === "name") {
+            this.#favorites.sort((a, b) => {
+                 return (a.animal.name.localeCompare(b.animal.name)) * directionMult;
+            })
+        }
+        if (type === "time") {
+            this.#favorites.sort((a, b) => {
+                if (a.time === b.time) {
+                    return 0;
+                }
+                return (a.time > b.time ? 1 : -1) * directionMult;
+            })
+        }
+        else {
+            return false;
+        }
+        
+        // TO-DO implement callbacks to refresh relevant lists
+        return true;
+    }
+
+    moveFavoriteUp = function(name){
+
+        return true;
+    }
+
+    moveFavoriteDown = function(name) {
+
+        return true;
+    }
 
     // functions for filling the history and favorites storage with dummy data from #testData
     DEV_fillDummyHistory = function (amount) {
