@@ -11,10 +11,6 @@ const animalHeaders = new Headers({
         throw new Error("Could not fetch API.");
       }
       const data = await response.json();
-  
-      console.log(data);
-      console.log(response);
-  
       return data;
     } catch (error) {
       console.log(error);
@@ -34,10 +30,6 @@ const animalHeaders = new Headers({
         throw new Error("Could not fetch API.");
       }
       const data = await response.json();
-  
-      console.log(data);
-      console.log(response);
-  
       return data;
     } catch (error) {
       console.log(error);

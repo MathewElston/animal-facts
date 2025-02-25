@@ -1,4 +1,9 @@
-async function createMainCard(animal) {
+async function getAnimalResults(searchInput) {
+    const animalResults = await fetchAnimals("name="+searchInput);
+    return animalResults
+}
+
+async function createMainCard(animal, animalPictures) {
     // Search results are displayed to main picture card
     const resultImg= document.getElementById('results');
     const resultHeader = document.getElementById('animalName');
@@ -16,23 +21,23 @@ async function createMainCard(animal) {
     
 
     //call image api
-    const data = await fetchImages("query=the animal "+animal.name); 
+    //const data = await fetchImages("query=the animal "+animal.name); 
     //get landscape image and diplay to main card
-    const imageSource = data.photos[0].src.landscape;
+    const imageSource = animalPictures.photos[0].src.landscape;
     resultImg.src = imageSource;
 
     //display photographer Name to main card 
     const photographerName = document.getElementById('photographerName');
-    photographerName.innerText = " Taken by " + data.photos[0].photographer + " on Pexels.";
+    photographerName.innerText = " Taken by " + animalPictures.photos[0].photographer + " on Pexels.";
 }
 
 
-async function createFactCards(animal) {
+async function createFactCards(animal,animalPictures) {
     //get fact card section div 
     const factCardSection = document.getElementById('factCardSection');
 
     //call image api
-    const imgData = await fetchImages("query=animal "+animal.name); 
+    //const imgData = await fetchImages("query=animal "+animal.name); 
     
     
     let htmlContent = '';
@@ -49,8 +54,8 @@ async function createFactCards(animal) {
             htmlContent += '<div class="col">' +
                                 '<div class="card h-100">' +
                                     '<figure>' +
-                                        '<img src='+ imgData.photos[imgCount].src.portrait +' class="card-img-top" alt="...">' +
-                                        '<figcaption><small class="text-body-secondary"> Taken by '+ imgData.photos[imgCount].photographer +' on Pexels.</small></figcaption>' +
+                                        '<img src='+ animalPictures.photos[imgCount].src.portrait +' class="card-img-top" alt="...">' +
+                                        '<figcaption><small class="text-body-secondary"> Taken by '+ animalPictures.photos[imgCount].photographer +' on Pexels.</small></figcaption>' +
                                     '</figure>' +
                                     '<div class="card-body">' +
                                         '<h5 class="card-title">' + section +'</h5>' +
@@ -73,18 +78,17 @@ async function createFactCards(animal) {
 }
 
 
-
-async function searchAnimal() {
+async function searchAnimal(animal,animalPictures) {
     //get user input
-    const searchInput = document.getElementById('searchInput').value;
+    //const searchInput = document.getElementById('searchInput').value;
 
     //Fetches animals 
-    const animals = await fetchAnimals("name="+searchInput);
-    const firstResult = animals[0];
+    //const animals = await fetchAnimals("name="+searchInput);
+    // firstResult = animals[0];
     
     //call function to display maincard
-    createMainCard(firstResult);
+    await createMainCard(animal,animalPictures);
 
     //call function to display fact cards
-    createFactCards(firstResult);
+    await createFactCards(animal,animalPictures);
 }
