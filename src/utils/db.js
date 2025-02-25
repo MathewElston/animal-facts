@@ -75,11 +75,13 @@ db = new class {
             animalObj.photos.photos[0].photographer,
             animalObj.photos.photos[0].src.original,
             animalObj.photos.photos[0].src.tiny,
-            animalObj.time,
         ];
 
         for (var req in reqs) {
             if (reqs[req] === undefined) {
+                console.error("An animal data object has failed schema validation! The object has not been loaded and will not be included in the next save operation.");
+                console.error("The missing key index was [" + req + "] and the full contents of the object are listed below.");
+                console.error(animalObj);
                 return false;
             }
         }
@@ -97,7 +99,7 @@ db = new class {
     // add a new favorite animal, will automatically take a timestamp as well
     // returns true if successful and false if not
     addFavorite = function(animalData) {
-        if (!this.#localStorageAccess) { return false; }
+        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
 
         // remove existing entries (will only remove first)
         var dupeIndex = this.#favorites.findIndex((e) => { return e.animal.name === animalData.animal.name; });
@@ -169,7 +171,7 @@ db = new class {
     // add to user history, will automatically take a timestamp as well
     // returns true if successful and false if not
     addHistory = function(animalData) {
-        if (!this.#localStorageAccess) { return false; }
+        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
         // add/update the timestamp for the animal data
         animalData["time"] = Date.now();
 
