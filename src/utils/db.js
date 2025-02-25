@@ -104,7 +104,7 @@ db = new class {
         return true;
     }
 
-    registerFavoriteCallback(callback) {
+    registerFavoritesCallback(callback) {
         this.#favoritesCallbacks.push(callback);
     }
 
