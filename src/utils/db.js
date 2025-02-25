@@ -9,6 +9,8 @@ db = new class {
     #localStorageAccess = false; // whether or not we can access localStorage
     #favorites = [];
     #history = [];
+    #historyCallbacks = []; // callbacks for when #history is saved
+    #favoritesCallbacks = []; // callbacks for when #favorites is saved
 
     // generic accessors
     //get favoritesKey() { return this.#favoritesKey; } // should not ever need to be accessed outside class
@@ -75,6 +77,7 @@ db = new class {
             animalObj.photos.photos[0].photographer,
             animalObj.photos.photos[0].src.original,
             animalObj.photos.photos[0].src.tiny,
+            //animalObj.time, // TO-DO make time optional for adding functions
         ];
 
         for (var req in reqs) {
@@ -92,8 +95,17 @@ db = new class {
     #saveFavorites = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#favoritesKey, JSON.stringify(this.#favorites));
+
+        // call all registered callbacks when we save favorites
+        for (var cbIndex = 0; cbIndex < this.#favoritesCallbacks.length; cbIndex++) {
+            this.#favoritesCallbacks[cbIndex]();
+        }
         this.checkStorage();
         return true;
+    }
+
+    registerFavoriteCallback(callback) {
+        this.#favoritesCallbacks.push(callback);
     }
 
     // add a new favorite animal, will automatically take a timestamp as well
@@ -164,8 +176,17 @@ db = new class {
     #saveHistory = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#historyKey, JSON.stringify(this.#history));
+
+        // call all registered callbacks when we save history
+        for (var cbIndex = 0; cbIndex < this.#historyCallbacks.length; cbIndex++) {
+            this.#historyCallbacks[cbIndex]();
+        }
         this.checkStorage();
         return true;
+    }
+
+    registerHistoryCallback(callback) {
+        this.#historyCallbacks.push(callback);
     }
 
     // add to user history, will automatically take a timestamp as well
