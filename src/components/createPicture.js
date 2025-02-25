@@ -1,4 +1,4 @@
-async function displayPicture(parentid,animal,width,height) {
+async function createPicture(parentid,animal,width,height) {
     const imageSource = animal.src.original;
     const img = document.createElement("img");
     const parent = document.getElementById(parentid);

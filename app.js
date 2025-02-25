@@ -31,7 +31,7 @@ let animalPictures;
 searchButton.onclick = async () => {
     const userInput = getAnimalInput("searchInput");
     animalData = await getAnimalResults(userInput);
-    await displayAnimalResults("resultsContainer", animalData, async (animal)=> {
+    await createAnimalResults("resultsContainer", animalData, async (animal)=> {
         console.log("Animal Clicked: ", animal);
         animalPictures = await fetchImages("query="+animal.name);
         searchAnimal(animal,animalPictures);

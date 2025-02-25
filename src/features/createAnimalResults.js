@@ -3,7 +3,7 @@
 * @param {Array} animalResults - An array of the animals data.
 * @param {function} onSelect - A callback function to handle the hovered animal card
 */
-async function displayAnimalResults(parentId, animalResults, onSelect) {
+async function createAnimalResults(parentId, animalResults, onSelect) {
     // Search results are displayed
     const parent = document.getElementById(parentId);
 
