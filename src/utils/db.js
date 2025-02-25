@@ -77,7 +77,7 @@ db = new class {
             animalObj.photos.photos[0].photographer,
             animalObj.photos.photos[0].src.original,
             animalObj.photos.photos[0].src.tiny,
-            //animalObj.time, // TO-DO make time optional for adding functions
+            animalObj.time,
         ];
 
         for (var req in reqs) {
@@ -111,6 +111,9 @@ db = new class {
     // add a new favorite animal, will automatically take a timestamp as well
     // returns true if successful and false if not
     addFavorite = function(animalData) {
+        // add/update the timestamp for the animal data
+        animalData["time"] = Date.now();
+
         if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
 
         // remove existing entries (will only remove first)
@@ -119,9 +122,6 @@ db = new class {
         if (dupeIndex >= 0) {
             this.#favorites.splice(dupeIndex, 1);
         }
-
-        // add/update the timestamp for the animal data
-        animalData["time"] = Date.now();
 
         // add a new element to the array with our favorites data
         this.#favorites.push(animalData);
@@ -192,9 +192,10 @@ db = new class {
     // add to user history, will automatically take a timestamp as well
     // returns true if successful and false if not
     addHistory = function(animalData) {
-        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
         // add/update the timestamp for the animal data
         animalData["time"] = Date.now();
+
+        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
 
         // add a new element to the array with our history data
         this.#history.push(animalData);
