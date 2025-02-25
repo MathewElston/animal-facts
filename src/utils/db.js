@@ -52,8 +52,39 @@ db = new class {
         }
 
         this.#favorites = JSON.parse(localStorage.getItem(this.#favoritesKey));
+
+        // validate schema and delete entries that are invalid
+        for (var loadIndex = 0; loadIndex < this.#favorites.length; loadIndex++) {
+            if(this.#validateSchema(this.#favorites[loadIndex]) === false) {
+                this.#favorites.splice(loadIndex, 1);
+                loadIndex--;
+            }
+        }
+
         // TO-DO: check integrity of array (dupes)
         return true;
+    }
+
+    #validateSchema = function(animalObj) {
+        // try to access the essential fields, return false if any fail
+        var reqs = [
+            animalObj.animal.name,
+            animalObj.animal.taxonomy,
+            animalObj.animal.locations,
+            animalObj.animal.characteristics,
+            animalObj.photos.photos[0].photographer,
+            animalObj.photos.photos[0].src.original,
+            animalObj.photos.photos[0].src.tiny,
+            animalObj.time,
+        ];
+
+        for (var req in reqs) {
+            if (reqs[req] === undefined) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     #saveFavorites = function() {
@@ -116,6 +147,15 @@ db = new class {
 
         this.#history = JSON.parse(localStorage.getItem(this.#historyKey));
         // TO-DO: check integrity of array (dupes)
+
+        // validate schema and delete entries that are invalid
+        for (var loadIndex = 0; loadIndex < this.#history.length; loadIndex++) {
+            if (this.#validateSchema(this.#history[loadIndex]) === false) {
+                this.#history.splice(loadIndex, 1);
+                loadIndex--;
+            }
+        }
+
         return true;
     }
 
