@@ -2,13 +2,14 @@ console.log("localStorageAccess: " + db.checkStorage());
 db.loadHistory();
 db.loadFavorites();
 
-if (db.history.length === 0) {
-    db.DEV_fillDummyHistory(15);
-}
+// if (db.history.length === 0) {
+//     db.DEV_fillDummyHistory(15);
+// }
 
-if (db.favorites.length === 0) {
-    db.DEV_fillDummyFavorites(15);
-}
+// if (db.favorites.length === 0) {
+//     db.DEV_fillDummyFavorites(15);
+// }
+
 db.registerFavoritesCallback(createFavoritesBar);
 db.registerHistoryCallback(createHistoryBar)
 createHistoryBar();
@@ -37,6 +38,9 @@ searchButton.onclick = async () => {
         console.log("Animal Clicked: ", animal);
         animalPictures = await fetchImages("query="+animal.name);
         searchAnimal(animal,animalPictures);
+
+        //Adds animal to history sidebar
+        db.addHistory({"animal": animal, "photos": animalPictures})
 
     });
 }

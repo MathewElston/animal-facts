@@ -1,6 +1,6 @@
 //Function to create history bar using array of data
 
-function createHistoryBar(){
+async function createHistoryBar(){
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("history_sidebar");
     //const title = document.createElement("div");
@@ -23,17 +23,26 @@ function createHistoryBar(){
         li.setAttribute("class", "list-group-item");
 
 
-        const href = document.createElement("href");
-        href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
+        //const href = document.createElement("href");
+        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
         //Set the innertext of the paragraph to the current element
-        href.innerText = db.history[i].animal.name;
+        //href.innerText = db.history[i].animal.name;
+
+        li.innerText = db.history[i].animal.name
+
+        li.addEventListener('mouseover', iconHoverIn);
 
         //Create delete button
-        createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
+        //createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
+
+        await createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
+        })
 
         //Append the new paragraph to the new div and the div to the HTML doc
-        li.appendChild(href);
+        //li.appendChild(href);
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
 

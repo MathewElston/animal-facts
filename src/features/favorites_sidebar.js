@@ -23,12 +23,14 @@ async function createFavoritesBar() {
         li.setAttribute("class", "list-group-item");
 
 
-        const href = document.createElement("href");
-        href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
+        //const href = document.createElement("href");
+        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
         
         //Set the innertext of the paragraph to the current element
-        href.textContent = db.favorites[i].animal.name;
+        //href.textContent = db.favorites[i].animal.name;
+
+        li.textContent = db.favorites[i].animal.name;
 
         li.addEventListener('mouseover', iconHoverIn);
 
@@ -37,20 +39,23 @@ async function createFavoritesBar() {
         //Create sorting buttons
         await createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
         })
 
         await createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
         })
 
 
 
         //Append the new paragraph to the new div and the div to the HTML doc
-        li.appendChild(href);
+        //li.appendChild(href);
 
         //Create delete button
         await createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
         })
 
         //paragraph.appendChild(delButton);
@@ -61,6 +66,10 @@ async function createFavoritesBar() {
 
 function deleteFavorite(animal) {
     db.removeFavorite(animal)
+}
+
+function addFavorite(animal) {
+    db.addFavorite(animal)
 }
 
 function moveFavoriteUp(animal) {
