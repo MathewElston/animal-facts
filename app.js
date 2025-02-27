@@ -9,6 +9,8 @@ if (db.history.length === 0) {
 if (db.favorites.length === 0) {
     db.DEV_fillDummyFavorites(15);
 }
+db.registerFavoritesCallback(createFavoritesBar);
+db.registerHistoryCallback(createHistoryBar)
 createHistoryBar();
 createFavoritesBar();
 

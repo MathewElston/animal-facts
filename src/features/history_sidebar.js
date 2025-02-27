@@ -26,31 +26,23 @@ function createHistoryBar(){
         const href = document.createElement("href");
         href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
-        // TO-DO change to this later
-        // const delButton = document.createElement("button");
-        // delButton.innerHTML = "❌";
-        // delButton.setAttribute("name", db.history[i].animal.name);
-        // delButton.onclick = (delButton) => {
-        //     db.removeFavorite(delButton.getAttribute("name"));
-        //     createHistoryBar();
-        // }
-
         //Set the innertext of the paragraph to the current element
         href.innerText = db.history[i].animal.name;
 
-        //TO-DO replace this style of adding the button later
-        href.innerHTML += " <button name=\"" + db.history[i].animal.name + "\" onclick=\"deleteHistory(this)\">❌</button><br>";
+        //Create delete button
+        createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
 
         //Append the new paragraph to the new div and the div to the HTML doc
         li.appendChild(href);
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
+
+        
         
     }
 }
 
 function deleteHistory(button) {
-    console.log(button.getAttribute("name"));
-    db.removeHistory(button.getAttribute("name"))
-    createHistoryBar();
+    console.log(button);
+    db.removeHistory(button)
 }

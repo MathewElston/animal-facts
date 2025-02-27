@@ -29,8 +29,11 @@ function createFavoritesBar() {
         //Set the innertext of the paragraph to the current element
         href.innerText = db.favorites[i].animal.name;
 
-        //TO-DO replace this style of adding the button later
-        href.innerHTML += " <button name=\"" + db.favorites[i].animal.name + "\" onclick=\"deleteFavorite(this)\">💀</button><br>";
+        //Create delete button
+        createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite);
+
+        createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown);
+        createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp);
 
         //Append the new paragraph to the new div and the div to the HTML doc
         li.appendChild(href);
@@ -40,8 +43,14 @@ function createFavoritesBar() {
     }
 }
 
-function deleteFavorite(button) {
-    console.log(button.getAttribute("name"));
-    db.removeFavorite(button.getAttribute("name"))
-    createFavoritesBar();
+function deleteFavorite(animal) {
+    db.removeFavorite(animal)
+}
+
+function moveFavoriteUp(animal) {
+    db.moveFavoriteUp(animal)
+}
+
+function moveFavoriteDown(animal) {
+    db.moveFavoriteDown(animal)
 }
