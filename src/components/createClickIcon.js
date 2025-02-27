@@ -12,4 +12,6 @@ async function createClickIcon(parentId,iconFont, data, onSelect) {
         onSelect(data);
     });
     parent.appendChild(iconElement);
+
+    return iconElement;
 }

@@ -32,6 +32,7 @@ function createFavoritesBar() {
         //Create delete button
         createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite);
 
+        //Create sorting buttons
         createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown);
         createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp);
 
