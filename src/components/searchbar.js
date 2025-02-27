@@ -33,6 +33,12 @@ async function createMainCard(animal, animalPictures) {
 
 
 async function createFactCards(animal,animalPictures) {
+
+    //Creates star element in fact cards, makes interactable and adds to sidebar
+    const favStarContainer = document.getElementById("favoritesStarContainer")
+    favStarContainer.innerHTML = "";
+    createClickIcon(favStarContainer, "bi bi-star", {"animal": animal, "photos": animalPictures}, addFavorite)
+
     //get fact card section div 
     const factCardSection = document.getElementById('factCardSection');
 
