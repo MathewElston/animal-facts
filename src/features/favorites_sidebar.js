@@ -52,7 +52,7 @@ async function createFavoritesBar() {
         await createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
         })
-        
+
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
 
@@ -72,6 +72,7 @@ function moveFavoriteDown(animal) {
 }
 
 function iconHoverIn(icon) {
+    icon.stopPropagation();
     icon.target.addEventListener('mouseout', iconHoverOut);
     icon.target.removeEventListener('mouseover', iconHoverIn);
     for (const child of icon.target.children) {
@@ -81,6 +82,7 @@ function iconHoverIn(icon) {
 }
 
 function iconHoverOut(icon) {
+    icon.stopPropagation();
     icon.target.addEventListener('mouseover', iconHoverIn);
     icon.target.removeEventListener('mouseout', iconHoverOut);
     for (const child of icon.target.children) {
