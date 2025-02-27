@@ -1,6 +1,6 @@
 //Function to create favorites bar using array of data
 
-async function createFavoritesBar() {
+function createFavoritesBar() {
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("favorites_sidebar");
     //const title = document.createElement("div");
@@ -37,12 +37,12 @@ async function createFavoritesBar() {
         
         
         //Create sorting buttons
-        await createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown).then((icon)=> {
+        createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
             icon.hidden = true;
         })
 
-        await createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp).then((icon)=> {
+        createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
             icon.hidden = true;
         })
@@ -53,7 +53,7 @@ async function createFavoritesBar() {
         //li.appendChild(href);
 
         //Create delete button
-        await createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite).then((icon)=> {
+        createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
             icon.hidden = true;
         })
@@ -64,20 +64,8 @@ async function createFavoritesBar() {
     }
 }
 
-function deleteFavorite(animal) {
-    db.removeFavorite(animal)
-}
-
 function addFavorite(animal) {
     db.addFavorite(animal)
-}
-
-function moveFavoriteUp(animal) {
-    db.moveFavoriteUp(animal)
-}
-
-function moveFavoriteDown(animal) {
-    db.moveFavoriteDown(animal)
 }
 
 function iconHoverIn(icon) {
