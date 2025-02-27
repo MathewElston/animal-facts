@@ -1,6 +1,6 @@
 //Function to create history bar using array of data
 
-async function createHistoryBar(){
+function createHistoryBar(){
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("history_sidebar");
     //const title = document.createElement("div");
@@ -36,7 +36,7 @@ async function createHistoryBar(){
         //Create delete button
         //createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
 
-        await createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory).then((icon)=> {
+        createClickIcon(li, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
             icon.hidden = true;
         })
@@ -49,9 +49,4 @@ async function createHistoryBar(){
         
         
     }
-}
-
-function deleteHistory(button) {
-    console.log(button);
-    db.removeHistory(button)
 }
