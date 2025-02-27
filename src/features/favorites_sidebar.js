@@ -1,6 +1,6 @@
 //Function to create favorites bar using array of data
 
-function createFavoritesBar() {
+async function createFavoritesBar() {
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("favorites_sidebar");
     //const title = document.createElement("div");
@@ -26,18 +26,33 @@ function createFavoritesBar() {
         const href = document.createElement("href");
         href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
+        
         //Set the innertext of the paragraph to the current element
-        href.innerText = db.favorites[i].animal.name;
+        href.textContent = db.favorites[i].animal.name;
 
-        //Create delete button
-        createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite);
+        li.addEventListener('mouseover', iconHoverIn);
 
+        
+        
         //Create sorting buttons
-        createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown);
-        createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp);
+        await createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, moveFavoriteDown).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+        })
+
+        await createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, moveFavoriteUp).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+        })
+
+
 
         //Append the new paragraph to the new div and the div to the HTML doc
         li.appendChild(href);
+
+        //Create delete button
+        await createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, deleteFavorite).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+        })
+        
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
 
@@ -54,4 +69,22 @@ function moveFavoriteUp(animal) {
 
 function moveFavoriteDown(animal) {
     db.moveFavoriteDown(animal)
+}
+
+function iconHoverIn(icon) {
+    icon.target.addEventListener('mouseout', iconHoverOut);
+    icon.target.removeEventListener('mouseover', iconHoverIn);
+    for (const child of icon.target.children) {
+        if (child.getAttribute("id") === "hoverIcon")
+            child.hidden = false;
+        }
+}
+
+function iconHoverOut(icon) {
+    icon.target.addEventListener('mouseover', iconHoverIn);
+    icon.target.removeEventListener('mouseout', iconHoverOut);
+    for (const child of icon.target.children) {
+        if (child.getAttribute("id") === "hoverIcon")
+            child.hidden = true;
+        }
 }
