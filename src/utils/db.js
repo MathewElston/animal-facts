@@ -9,6 +9,8 @@ db = new class {
     #localStorageAccess = false; // whether or not we can access localStorage
     #favorites = [];
     #history = [];
+    #historyCallbacks = []; // callbacks for when #history is saved
+    #favoritesCallbacks = []; // callbacks for when #favorites is saved
 
     // generic accessors
     //get favoritesKey() { return this.#favoritesKey; } // should not ever need to be accessed outside class
@@ -52,24 +54,74 @@ db = new class {
         }
 
         this.#favorites = JSON.parse(localStorage.getItem(this.#favoritesKey));
+
+        // validate schema and delete entries that are invalid
+        for (var loadIndex = 0; loadIndex < this.#favorites.length; loadIndex++) {
+            if(this.#validateSchema(this.#favorites[loadIndex]) === false) {
+                this.#favorites.splice(loadIndex, 1);
+                loadIndex--;
+            }
+        }
+
         // TO-DO: check integrity of array (dupes)
         return true;
+    }
+
+    #validateSchema = function(animalObj) {
+        // try to access the essential fields, return false if any fail
+        var reqs = [
+            animalObj.animal.name,
+            animalObj.animal.taxonomy,
+            animalObj.animal.locations,
+            animalObj.animal.characteristics,
+            animalObj.photos.photos[0].photographer,
+            animalObj.photos.photos[0].src.original,
+            animalObj.photos.photos[0].src.tiny,
+            animalObj.time,
+        ];
+
+        for (var req in reqs) {
+            if (reqs[req] === undefined) {
+                console.error("An animal data object has failed schema validation! The object has not been loaded and will not be included in the next save operation.");
+                console.error("The missing key index was [" + req + "] and the full contents of the object are listed below.");
+                console.error(animalObj);
+                return false;
+            }
+        }
+        return true;
+
     }
 
     #saveFavorites = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#favoritesKey, JSON.stringify(this.#favorites));
+
+        // call all registered callbacks when we save favorites
+        for (var cbIndex = 0; cbIndex < this.#favoritesCallbacks.length; cbIndex++) {
+            this.#favoritesCallbacks[cbIndex]();
+        }
         this.checkStorage();
         return true;
+    }
+
+    registerFavoritesCallback(callback) {
+        this.#favoritesCallbacks.push(callback);
     }
 
     // add a new favorite animal, will automatically take a timestamp as well
     // returns true if successful and false if not
     addFavorite = function(animalData) {
-        if (!this.#localStorageAccess) { return false; }
-
         // add/update the timestamp for the animal data
         animalData["time"] = Date.now();
+
+        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
+
+        // remove existing entries (will only remove first)
+        var dupeIndex = this.#favorites.findIndex((e) => { return e.animal.name === animalData.animal.name; });
+
+        if (dupeIndex >= 0) {
+            this.#favorites.splice(dupeIndex, 1);
+        }
 
         // add a new element to the array with our favorites data
         this.#favorites.push(animalData);
@@ -109,22 +161,41 @@ db = new class {
 
         this.#history = JSON.parse(localStorage.getItem(this.#historyKey));
         // TO-DO: check integrity of array (dupes)
+
+        // validate schema and delete entries that are invalid
+        for (var loadIndex = 0; loadIndex < this.#history.length; loadIndex++) {
+            if (this.#validateSchema(this.#history[loadIndex]) === false) {
+                this.#history.splice(loadIndex, 1);
+                loadIndex--;
+            }
+        }
+
         return true;
     }
 
     #saveHistory = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#historyKey, JSON.stringify(this.#history));
+
+        // call all registered callbacks when we save history
+        for (var cbIndex = 0; cbIndex < this.#historyCallbacks.length; cbIndex++) {
+            this.#historyCallbacks[cbIndex]();
+        }
         this.checkStorage();
         return true;
+    }
+
+    registerHistoryCallback(callback) {
+        this.#historyCallbacks.push(callback);
     }
 
     // add to user history, will automatically take a timestamp as well
     // returns true if successful and false if not
     addHistory = function(animalData) {
-        if (!this.#localStorageAccess) { return false; }
         // add/update the timestamp for the animal data
         animalData["time"] = Date.now();
+
+        if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
 
         // add a new element to the array with our history data
         this.#history.push(animalData);
@@ -170,6 +241,77 @@ db = new class {
         }
     }
 
+    // SORTING FUNCTIONS
+
+    // the sorting functions will complete a sort IN PLACE and will return true if successful
+    // and false if not successful
+    // type arguments are name and time
+    // direction arguments are ascending and descending
+    sortFavorites = function (type, direction = "ascending") {
+        // check direction parameter validity
+        if (direction !== "ascending" && direction !== "descending") {
+            return false;
+        }
+
+        // invert the sorting direction if we're sorting descending
+        var directionMult = (direction === "ascending" ? 1 : -1);
+
+        // sort the array based on the parameters sent
+        if (type === "name") {
+            this.#favorites.sort((a, b) => {
+                 return (a.animal.name.localeCompare(b.animal.name)) * directionMult;
+            })
+        }
+        else if (type === "time") {
+            this.#favorites.sort((a, b) => {
+                if (a.time === b.time) {
+                    return 0;
+                }
+                return (a.time > b.time ? 1 : -1) * directionMult;
+            })
+        }
+        else { // invalid type parameter
+            return false;
+        }
+        
+        // TO-DO implement callbacks to refresh relevant lists
+        this.#saveFavorites();
+        return true;
+    }
+
+    moveFavoriteUp = function(name){
+        // get the index of the animal to move
+        var animalIndex = this.#favorites.findIndex((e) => { return e.animal.name.toUpperCase() === name.toUpperCase(); });
+
+        // if the named animal isnt in favorites or is at the top of the list
+        if (animalIndex <= 0) {
+            return false;
+        }
+
+        var toMove = this.#favorites[animalIndex];
+        this.#favorites[animalIndex] = this.#favorites[animalIndex - 1];
+        this.#favorites[animalIndex - 1] = toMove;
+
+        this.#saveFavorites();
+        return true;
+    }
+
+    moveFavoriteDown = function(name) {
+        // get the index of the animal to move
+        var animalIndex = this.#favorites.findIndex((e) => { return e.animal.name.toUpperCase() === name.toUpperCase(); });
+
+        // if the named animal isnt in favorites or is at the bottom of the list
+        if (animalIndex < 0 || animalIndex >= this.#favorites.length-1) {
+            return false;
+        }
+
+        var toMove = this.#favorites[animalIndex];
+        this.#favorites[animalIndex] = this.#favorites[animalIndex + 1];
+        this.#favorites[animalIndex + 1] = toMove;
+
+        this.#saveFavorites();
+        return true;
+    }
 
     // functions for filling the history and favorites storage with dummy data from #testData
     DEV_fillDummyHistory = function (amount) {

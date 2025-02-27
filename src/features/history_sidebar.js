@@ -23,34 +23,30 @@ function createHistoryBar(){
         li.setAttribute("class", "list-group-item");
 
 
-        const href = document.createElement("href");
-        href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
-
-        // TO-DO change to this later
-        // const delButton = document.createElement("button");
-        // delButton.innerHTML = "❌";
-        // delButton.setAttribute("name", db.history[i].animal.name);
-        // delButton.onclick = (delButton) => {
-        //     db.removeFavorite(delButton.getAttribute("name"));
-        //     createHistoryBar();
-        // }
+        //const href = document.createElement("href");
+        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
         //Set the innertext of the paragraph to the current element
-        href.innerText = db.history[i].animal.name;
+        //href.innerText = db.history[i].animal.name;
 
-        //TO-DO replace this style of adding the button later
-        href.innerHTML += " <button name=\"" + db.history[i].animal.name + "\" onclick=\"deleteHistory(this)\">❌</button><br>";
+        li.innerText = db.history[i].animal.name
+
+        li.addEventListener('mouseover', iconHoverIn);
+
+        //Create delete button
+        //createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
+
+        createClickIcon(li, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
+        })
 
         //Append the new paragraph to the new div and the div to the HTML doc
-        li.appendChild(href);
+        //li.appendChild(href);
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
+
+        
         
     }
-}
-
-function deleteHistory(button) {
-    console.log(button.getAttribute("name"));
-    db.removeHistory(button.getAttribute("name"))
-    createHistoryBar();
 }

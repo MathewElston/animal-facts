@@ -23,25 +23,67 @@ function createFavoritesBar() {
         li.setAttribute("class", "list-group-item");
 
 
-        const href = document.createElement("href");
-        href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
+        //const href = document.createElement("href");
+        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
 
+        
         //Set the innertext of the paragraph to the current element
-        href.innerText = db.favorites[i].animal.name;
+        //href.textContent = db.favorites[i].animal.name;
 
-        //TO-DO replace this style of adding the button later
-        href.innerHTML += " <button name=\"" + db.favorites[i].animal.name + "\" onclick=\"deleteFavorite(this)\">💀</button><br>";
+        li.textContent = db.favorites[i].animal.name;
+
+        li.addEventListener('mouseover', iconHoverIn);
+
+        
+        
+        //Create sorting buttons
+        createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
+        })
+
+        createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
+        })
+
+
 
         //Append the new paragraph to the new div and the div to the HTML doc
-        li.appendChild(href);
+        //li.appendChild(href);
+
+        //Create delete button
+        createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon)=> {
+            icon.setAttribute("id", "hoverIcon");
+            icon.hidden = true;
+        })
+
         //paragraph.appendChild(delButton);
         parent.appendChild(li);
 
     }
 }
 
-function deleteFavorite(button) {
-    console.log(button.getAttribute("name"));
-    db.removeFavorite(button.getAttribute("name"))
-    createFavoritesBar();
+function addFavorite(animal) {
+    db.addFavorite(animal)
+}
+
+function iconHoverIn(icon) {
+    icon.stopPropagation();
+    icon.target.addEventListener('mouseout', iconHoverOut);
+    icon.target.removeEventListener('mouseover', iconHoverIn);
+    for (const child of icon.target.children) {
+        if (child.getAttribute("id") === "hoverIcon")
+            child.hidden = false;
+        }
+}
+
+function iconHoverOut(icon) {
+    icon.stopPropagation();
+    icon.target.addEventListener('mouseover', iconHoverIn);
+    icon.target.removeEventListener('mouseout', iconHoverOut);
+    for (const child of icon.target.children) {
+        if (child.getAttribute("id") === "hoverIcon")
+            child.hidden = true;
+        }
 }
