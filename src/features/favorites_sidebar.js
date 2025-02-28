@@ -1,14 +1,13 @@
 //Function to create favorites bar using array of data
 
 function createFavoritesBar() {
+    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
+
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("favorites_sidebar");
-    //const title = document.createElement("div");
+    const listTemplate = parent.children[0].cloneNode(true);
 
     parent.innerHTML = "";
-
-    //title.textContent = "Favorites:";
-    //parent.appendChild(title);
 
     if (db.favorites.length === 0) {
         parent.textContent = "You dont have any favorites!";
@@ -18,47 +17,56 @@ function createFavoritesBar() {
     //For loop to iterate through each element in array
     for (let i = 0; i < db.favorites.length; i++) {
 
-        //Create variables for a new div and paragraph
-        const li = document.createElement("li");
-        li.setAttribute("class", "list-group-item");
+        //Create the list item we'll be editing from the template
+        var li = listTemplate.cloneNode(true);
 
 
-        //const href = document.createElement("href");
-        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
+        // TO-DO change this to use querySelector later
+        function nestedIterate(node) {
+            for (let child of node.children) {
+                switch (child.getAttribute("name")) {
+                    case "animalImg":
+                        child.setAttribute("src", db.favorites[i].photos.photos[0].src.original + pexelsFormatting);
+                        child.setAttribute("width", "40px");
+                        child.setAttribute("height", "40px");
+                        break;
+                    case "animalName":
+                        child.textContent = db.favorites[i].animal.name;
+                        break;
+                    case "animalMotto":
+                        child.textContent = db.favorites[i].animal.characteristics.slogan;
+                        if (child.textContent == "") {
+                            child.textContent = db.favorites[i].animal.taxonomy.scientific_name;
+                        }
+                        break;
+                    case "sortIcons":
+                        child.textContent = "";
 
-        
-        //Set the innertext of the paragraph to the current element
-        //href.textContent = db.favorites[i].animal.name;
-
-        li.textContent = db.favorites[i].animal.name;
-
+                        //Create sorting buttons
+                        createClickIcon(child, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon) => {
+                            icon.setAttribute("id", "hoverIcon");
+                            icon.style.visibility = "hidden"
+                        })
+                        createClickIcon(child, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon) => {
+                            icon.setAttribute("id", "hoverIcon");
+                            icon.style.visibility = "hidden"
+                        })
+                        break;
+                    case "favoriteIcon":
+                        child.textContent = "";
+                        //Create delete button
+                        createClickIcon(child, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon) => {
+                            icon.setAttribute("id", "hoverIcon");
+                            icon.style.visibility = "hidden"
+                        })
+                        break;
+                }
+                nestedIterate(child);
+            }
+        }
+        nestedIterate(li);
         li.addEventListener('mouseenter', iconHoverIn);
 
-        
-        
-        //Create sorting buttons
-        createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon)=> {
-            icon.setAttribute("id", "hoverIcon");
-            icon.style.visibility = "hidden"
-        })
-
-        createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon)=> {
-            icon.setAttribute("id", "hoverIcon");
-            icon.style.visibility = "hidden"
-        })
-
-
-
-        //Append the new paragraph to the new div and the div to the HTML doc
-        //li.appendChild(href);
-
-        //Create delete button
-        createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon)=> {
-            icon.setAttribute("id", "hoverIcon");
-            icon.style.visibility = "hidden"
-        })
-
-        //paragraph.appendChild(delButton);
         parent.appendChild(li);
 
     }

@@ -5,14 +5,9 @@ function createHistoryBar(){
 
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("history_sidebar");
-    //console.log(parent.querySelector("input[name='animalList']"));
-    //const listTemplate = parent.querySelector("input[name='animalList']").cloneNode(true);
     const listTemplate = parent.children[0].cloneNode(true);
 
     parent.innerHTML = "";
-
-    //title.textContent = "History:";
-    //parent.appendChild(title);
 
     if (db.history.length === 0) {
         parent.textContent = "You dont have any history!";
@@ -22,7 +17,7 @@ function createHistoryBar(){
     //For loop to iterate through each element in array
     for (let i = 0; i < db.history.length; i++){
 
-        //Create variables for a new div and paragraph
+        //Create the list item we'll be editing from the template
         var li = listTemplate.cloneNode(true);
 
         // TO-DO change this to use querySelector later
@@ -58,10 +53,6 @@ function createHistoryBar(){
         nestedIterate(li);
         li.addEventListener('mouseenter', iconHoverIn);
 
-        //Append the new paragraph to the new div and the div to the HTML doc
         parent.appendChild(li);
-
-        
-        
     }
 }
