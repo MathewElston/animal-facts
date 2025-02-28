@@ -39,12 +39,12 @@ function createFavoritesBar() {
         //Create sorting buttons
         createClickIcon(li, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
-            icon.hidden = true;
+            icon.style.visibility = "hidden"
         })
 
         createClickIcon(li, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
-            icon.hidden = true;
+            icon.style.visibility = "hidden"
         })
 
 
@@ -55,7 +55,7 @@ function createFavoritesBar() {
         //Create delete button
         createClickIcon(li, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
-            icon.hidden = true;
+            icon.style.visibility = "hidden"
         })
 
         //paragraph.appendChild(delButton);
@@ -69,21 +69,21 @@ function addFavorite(animal) {
 }
 
 function iconHoverIn(icon) {
-    icon.stopPropagation();
+    //icon.stopPropagation();
     icon.target.addEventListener('mouseout', iconHoverOut);
     icon.target.removeEventListener('mouseover', iconHoverIn);
     for (const child of icon.target.children) {
         if (child.getAttribute("id") === "hoverIcon")
-            child.hidden = false;
+            child.style.visibility = "visible"
         }
 }
 
 function iconHoverOut(icon) {
-    icon.stopPropagation();
+    //icon.stopPropagation();
     icon.target.addEventListener('mouseover', iconHoverIn);
     icon.target.removeEventListener('mouseout', iconHoverOut);
     for (const child of icon.target.children) {
         if (child.getAttribute("id") === "hoverIcon")
-            child.hidden = true;
+            child.style.visibility = "hidden"
         }
 }

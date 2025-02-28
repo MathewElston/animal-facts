@@ -38,7 +38,7 @@ function createHistoryBar(){
 
         createClickIcon(li, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon)=> {
             icon.setAttribute("id", "hoverIcon");
-            icon.hidden = true;
+            icon.style.visibility = "hidden"
         })
 
         //Append the new paragraph to the new div and the div to the HTML doc
