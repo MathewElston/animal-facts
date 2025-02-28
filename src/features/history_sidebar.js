@@ -31,7 +31,7 @@ function createHistoryBar(){
 
         li.innerText = db.history[i].animal.name
 
-        li.addEventListener('mouseover', iconHoverIn);
+        li.addEventListener('mouseenter', iconHoverIn);
 
         //Create delete button
         //createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);

@@ -32,7 +32,7 @@ function createFavoritesBar() {
 
         li.textContent = db.favorites[i].animal.name;
 
-        li.addEventListener('mouseover', iconHoverIn);
+        li.addEventListener('mouseenter', iconHoverIn);
 
         
         
@@ -66,8 +66,8 @@ function createFavoritesBar() {
 
 function iconHoverIn(icon) {
     //icon.stopPropagation();
-    icon.target.addEventListener('mouseout', iconHoverOut);
-    icon.target.removeEventListener('mouseover', iconHoverIn);
+    icon.target.addEventListener('mouseleave', iconHoverOut);
+    icon.target.removeEventListener('mouseenter', iconHoverIn);
     for (const child of icon.target.children) {
         if (child.getAttribute("id") === "hoverIcon")
             child.style.visibility = "visible"
@@ -76,8 +76,8 @@ function iconHoverIn(icon) {
 
 function iconHoverOut(icon) {
     //icon.stopPropagation();
-    icon.target.addEventListener('mouseover', iconHoverIn);
-    icon.target.removeEventListener('mouseout', iconHoverOut);
+    icon.target.addEventListener('mouseenter', iconHoverIn);
+    icon.target.removeEventListener('mouseleave', iconHoverOut);
     for (const child of icon.target.children) {
         if (child.getAttribute("id") === "hoverIcon")
             child.style.visibility = "hidden"
