@@ -1,45 +1,53 @@
-// Animal API call function and headers -> Returns Async JSON Object
-const animalHeaders = new Headers({
-  "X-Api-Key": "VmBqdp0DySLZmHEVc+jqqQ==Nf2BTvpDoqncCtKW",
-});
-const animalsURL = "https://api.api-ninjas.com/v1/animals?";
+console.log("localStorageAccess: " + db.checkStorage());
+db.loadHistory();
+db.loadFavorites();
 
-async function fetchAnimals(args) {
-  try {
-    const response = await fetch(animalsURL + args, { headers: animalHeaders });
-    if (!response.ok) {
-      throw new Error("Could not fetch API.");
-    }
-    const data = await response.json();
+// if (db.history.length === 0) {
+//     db.DEV_fillDummyHistory(15);
+// }
 
-    console.log(data);
-    console.log(response);
+// if (db.favorites.length === 0) {
+//     db.DEV_fillDummyFavorites(15);
+// }
 
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+db.registerFavoritesCallback(createFavoritesBar);
+db.registerHistoryCallback(createHistoryBar)
+createHistoryBar();
+createFavoritesBar();
+
+// Test
+/* const imagebutton = document.getElementById("picturebutton");
+imagebutton.onclick = async()=> 
+{
+    const image = await fetchImages("query=cheetah");
+    console.log("afterfetch");
+    console.log(image.photos[0]);
+   await displayPicture("photo-container", image.photos[0], width = 500, height = 350);
+
+} */
+
+const searchButton = document.getElementById("btnSearchAnimals");
+let animalData;
+let selectedAnimal;
+let animalPictures;
+
+searchButton.onclick = async () => {
+    const userInput = getAnimalInput("searchInput");
+    animalData = await getAnimalResults(userInput);
+    await createAnimalResults("resultsContainer", animalData, async (animal)=> {
+        console.log("Animal Clicked: ", animal);
+        animalPictures = await fetchImages("query="+animal.name);
+        searchAnimal(animal,animalPictures);
+
+        //Adds animal to history sidebar
+        db.addHistory({"animal": animal, "photos": animalPictures})
+
+    });
 }
-
-// Images API call function and headers -> Returns Async JSON Object
-const imagesHeaders = new Headers({
-  Authorization: "Qna0ffg6Y6hV8qsX7hBYb92BxvTFW6fATIb0eMJ9TTQzlCnpp9GG9EmK",
-});
-const imagesURL = "https://api.pexels.com/v1/search?";
-
-async function fetchImages(args) {
-  try {
-    const response = await fetch(imagesURL + args, { headers: imagesHeaders });
-    if (!response.ok) {
-      throw new Error("Could not fetch API.");
-    }
-    const data = await response.json();
-
-    console.log(data);
-    console.log(response);
-
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+const testButton = document.getElementById('testButton');
+const data = 'hi mom';
+testButton.onclick = async () => {
+    createClickIcon('resultsContainer','bi bi-box2-heart-fill', data, (data) => {
+        console.log("Clicked", data);
+    });
 }
