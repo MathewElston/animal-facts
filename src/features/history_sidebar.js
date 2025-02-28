@@ -1,9 +1,13 @@
 //Function to create history bar using array of data
 
 function createHistoryBar(){
+    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
+
     //Create variable for sidebar element in HTML doc
     const parent = document.getElementById("history_sidebar");
-    //const title = document.createElement("div");
+    //console.log(parent.querySelector("input[name='animalList']"));
+    //const listTemplate = parent.querySelector("input[name='animalList']").cloneNode(true);
+    const listTemplate = parent.children[0].cloneNode(true);
 
     parent.innerHTML = "";
 
@@ -19,31 +23,42 @@ function createHistoryBar(){
     for (let i = 0; i < db.history.length; i++){
 
         //Create variables for a new div and paragraph
-        const li = document.createElement("li");
-        li.setAttribute("class", "list-group-item");
+        var li = listTemplate.cloneNode(true);
 
-
-        //const href = document.createElement("href");
-        //href.setAttribute("class", "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover");
-
-        //Set the innertext of the paragraph to the current element
-        //href.innerText = db.history[i].animal.name;
-
-        li.innerText = db.history[i].animal.name
-
+        // TO-DO change this to use querySelector later
+        function nestedIterate(node) {
+            for (let child of node.children) {
+                switch (child.getAttribute("name")) {
+                    case "animalImg":
+                        child.setAttribute("src", db.history[i].photos.photos[0].src.original + pexelsFormatting);
+                        child.setAttribute("width", "40px");
+                        child.setAttribute("height", "40px");
+                        break;
+                    case "animalName":
+                        child.textContent = db.history[i].animal.name;
+                        break;
+                    case "animalMotto":
+                        child.textContent = db.history[i].animal.characteristics.slogan;
+                        if (child.textContent == "") {
+                            child.textContent = db.history[i].animal.taxonomy.scientific_name;
+                        }
+                        break;
+                    case "animalIcons":
+                        child.textContent = "";
+                        //Create delete button
+                        createClickIcon(child, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon) => {
+                            icon.setAttribute("id", "hoverIcon");
+                            icon.style.visibility = "hidden"
+                        })
+                        break;
+                }
+                nestedIterate(child);
+            }
+        }
+        nestedIterate(li);
         li.addEventListener('mouseenter', iconHoverIn);
 
-        //Create delete button
-        //createClickIcon(li, "bi bi-trash", db.history[i].animal.name, deleteHistory);
-
-        createClickIcon(li, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon)=> {
-            icon.setAttribute("id", "hoverIcon");
-            icon.style.visibility = "hidden"
-        })
-
         //Append the new paragraph to the new div and the div to the HTML doc
-        //li.appendChild(href);
-        //paragraph.appendChild(delButton);
         parent.appendChild(li);
 
         

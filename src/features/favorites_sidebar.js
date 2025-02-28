@@ -68,7 +68,9 @@ function iconHoverIn(icon) {
     //icon.stopPropagation();
     icon.target.addEventListener('mouseleave', iconHoverOut);
     icon.target.removeEventListener('mouseenter', iconHoverIn);
-    for (const child of icon.target.children) {
+    hoverIcons = icon.target.querySelectorAll("[id='hoverIcon']");
+
+    for (const child of hoverIcons) {
         if (child.getAttribute("id") === "hoverIcon")
             child.style.visibility = "visible"
         }
@@ -78,8 +80,11 @@ function iconHoverOut(icon) {
     //icon.stopPropagation();
     icon.target.addEventListener('mouseenter', iconHoverIn);
     icon.target.removeEventListener('mouseleave', iconHoverOut);
-    for (const child of icon.target.children) {
-        if (child.getAttribute("id") === "hoverIcon")
-            child.style.visibility = "hidden"
+    hoverIcons = icon.target.querySelectorAll("[id='hoverIcon']");
+
+    for (const child of hoverIcons) {
+        if (child.getAttribute("id") === "hoverIcon") {
+            child.style.visibility = "hidden";
         }
+    }
 }
