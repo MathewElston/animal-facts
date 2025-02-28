@@ -64,10 +64,6 @@ function createFavoritesBar() {
     }
 }
 
-function addFavorite(animal) {
-    db.addFavorite(animal)
-}
-
 function iconHoverIn(icon) {
     //icon.stopPropagation();
     icon.target.addEventListener('mouseout', iconHoverOut);
