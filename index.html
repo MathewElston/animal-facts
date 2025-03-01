@@ -36,7 +36,14 @@
               <p class="card-text">
 
                 <ul class="list-group list-group-flush" id="history_sidebar">
-                  <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">An item</a></li>
+                  <li class="px-0 list-group-item d-flex justify-content-between lh-condensed">
+                    <img name="animalImg" class="rounded-circle"></img>
+                    <div name="textDiv">
+                      <h6 name = "animalName" class="my-0">AnimalName</h6>
+                      <small name="animalMotto" class="text-muted">AnimalMotto</small>
+                    </div>
+                    <span name="animalIcons">IconsHere</span>
+                  </li>
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A second item</a></li>
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A third item</a></li>
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A fourth item</a></li>
@@ -74,79 +81,108 @@
 
    
 
-    <!-- footer -->
-     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary position-relative">
-      <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
-        <div class="row">
-          <div class="col-6 col-lg-3 mb-3">
-            <h5>Attributions</h5>
-            <ul class="list-unstyled me-1">
-              <li>Animal information from <a href="https://www.api-ninjas.com/">API Ninjas</a> <a href="https://www.api-ninjas.com/api/animals">Animals API</a></li>
-              <li>Pictures from <a href="https://www.pexels.com/">Pexels</a> API</li>
-            </ul>
-          </div>
-          <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-            <h5>The Team</h5>
-            <ul class="list-unstyled me-1">
-              <li>Mathew Elston</li>
-              <li>Carlos Manzo</li>
-              <li>Victor Guzman</li>
-              <li>Colton Cook</li>
-              <li>Monique Santoyo</li>
-              <li>Anabel Ramirez</li>
-            </ul>
-          </div>          
-          <div class="col-6 col-lg-2  mb-3">
-            <h5>Technology used</h5>
-            <ul class="list-unstyled  me-1">
-              <li>JavaScript</li>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>Bootstrap</li>
-              <li>Github</li>
-              <li>Trello</li>
-            </ul>
-          </div>
-          <div class="col-6 col-lg-2  mb-3">
-            <h5>External Links</h5>
-            <ul class="list-unstyled me-1">
- 
-            </ul>
+    <!-- Favorites sidebar -->
+        <div class="col ps-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Favorites</h5>
+              <p class="card-text">
+        
+              <ul class="list-group list-group-flush" id="favorites_sidebar">
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">An
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A second
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A third
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A fourth
+                    item</a></li>
+                <li class="list-group-item"><a href="#"
+                    class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">And a
+                    fifth one</a></li>
+              </ul>
+        
+              </p>
+            </div>
           </div>
         </div>
+        
+
+        </div>
       </div>
-      <hr>  
-      <div class=" text-center">
-        <p class="lead">Copyright &copy; 2025 Animal Encyclopedia</p>
-        <p class="lead">CS411 Winter 2025</p>
-        <a href="#" class="position-absolute bottom-0 end-0 p-5">
-          <i class="bi bi-arrow-up-circle h1"></i>
-        </a>
-      </div>
-     </footer>
+    </div>
 
-     <script
-     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-     crossorigin="anonymous"
-     defer></script>
-   <script src="createFactCard.js" defer></script>
-   <script src="app.js" defer></script>
-=========
-<div>
-  <input type="text" id="searchInput" placeholders="Search for an animal..."/>
-  <button onclick="searchAnimal()">Search</button>
-</div>
-
-<div id="results"></div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+      <!-- scripts -->
+    <script src="./src/utils/db.js" defer></script>
+    <script src="./src/utils/getAnimalInput.js" defer></script>
+    <script src="./src/utils/fetch.js" defer></script>
+    <script src="./src/components/createClickIcon.js" defer></script>
+    <script src ="./src/components/createMainCard.js" defer> </script>
+    <script src="./src/components/searchbar.js" defer></script>
+    <script src="./src/components/createFactCards.js" defer></script>
+    <script src="./src/features/createAnimalResults.js" defer></script>
+    <script src="./src/features/history_sidebar.js" defer></script>
+    <script src="./src/features/favorites_sidebar.js" defer></script>
     <script src="app.js" defer></script>
-    <script src="searchbar.js" defer></script>
->>>>>>>>> Temporary merge branch 2
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+    defer></script>
+
   </body>
+      <!-- footer -->
+      <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary position-relative">
+        <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+          <div class="row">
+            <div class="col-6 col-lg-3 mb-3">
+              <h5>Attributions</h5>
+              <ul class="list-unstyled me-1">
+                <li>Animal information from <a href="https://www.api-ninjas.com/">API Ninjas</a> <a href="https://www.api-ninjas.com/api/animals">Animals API</a></li>
+                <li>Pictures from <a href="https://www.pexels.com/">Pexels</a> API</li>
+              </ul>
+            </div>
+            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+              <h5>The Team</h5>
+              <ul class="list-unstyled me-1">
+                <li>Mathew Elston</li>
+                <li>Carlos Manzo</li>
+                <li>Victor Guzman</li>
+                <li>Colton Cook</li>
+                <li>Monique Santoyo</li>
+                <li>Anabel Ramirez</li>
+              </ul>
+            </div>          
+            <div class="col-6 col-lg-2  mb-3">
+              <h5>Technology used</h5>
+              <ul class="list-unstyled  me-1">
+                <li>JavaScript</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Bootstrap</li>
+                <li>Github</li>
+                <li>Trello</li>
+              </ul>
+            </div>
+            <div class="col-6 col-lg-2  mb-3">
+              <h5>External Links</h5>
+              <ul class="list-unstyled me-1">
+   
+              </ul>
+            </div>
+          </div>
+        </div>
+        <hr>  
+        <div class=" text-center">
+          <p class="lead">Copyright &copy; 2025 Animal Encyclopedia</p>
+          <p class="lead">CS411 Winter 2025</p>
+          <a href="#" class="position-absolute bottom-0 end-0 p-5">
+            <i class="bi bi-arrow-up-circle h1"></i>
+          </a>
+        </div>
+       </footer>
 </html>

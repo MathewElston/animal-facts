@@ -43,6 +43,6 @@ async function createMainCard(animal, animalPictures) {
     //Creates star element in fact cards, makes interactable and adds to sidebar
     const favStarContainer = document.getElementById("favoritesStarContainer")
     favStarContainer.innerHTML = "";
-    createClickIcon(favStarContainer, "bi bi-star", {"animal": animal, "photos": animalPictures}, addFavorite)
+    createClickIcon(favStarContainer, "bi bi-star", { "animal": animal, "photos": animalPictures }, (animal) => { db.addFavorite(animal) });
 
 }
