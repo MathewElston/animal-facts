@@ -13,6 +13,7 @@
     crossorigin="anonymous">
 
     <link rel="stylesheet" href="styles.css" />
+    
   </head>
   <body>
 
@@ -58,8 +59,9 @@
             </div>
            
             <!--attempt at category fiters-->
+            
             <div class = "dropdownm">
-              <button onclick = "dropDownMenu()" class = "btn">Habitats</button>
+              <button onclick = "dropDownMenu()">Habitats</button>
               <div id = "sections" class = "content">
                 <a href = #Wetland>Wetland</a>
                 <a href = #Grassland>Grassland</a>
@@ -197,6 +199,7 @@
     <script src="./src/features/createAnimalResults.js" defer></script>
     <script src="./src/features/history_sidebar.js" defer></script>
     <script src="./src/features/favorites_sidebar.js" defer></script>
+    <script src = ".src/features/categoryfilters.js" defer></script>
     <script src="app.js" defer></script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -257,6 +260,7 @@
           <p class="lead">CS411 Winter 2025</p>
           <a href="#" class="position-absolute bottom-0 end-0 p-5">
             <i class="bi bi-arrow-up-circle h1"></i>
+         
           </a>
         </div>
        </footer>
