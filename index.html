@@ -54,6 +54,15 @@
             
     <!-- search bar section -->        
             <div class="input-group mb-3 pb-5">
+              <select id = "categorySelect">
+                <option>
+                  <option value = "Wetlands">Wetlands</option>
+                  <option value = "openOcean">OpenOcean</option>
+                  <option value = "Forest">Forest</option>
+                  <option value = "openOcean">OpenOcean</option>
+                  <option value = "openOcean">OpenOcean</option>
+                </option>
+              </select>
               <input name="searchInput" id="searchInput" type="text" class="form-control" placeholder="Search for an animal... ">
               <button id="btnSearchAnimals" class="btn btn-outline-secondary" type="button">Search</button>
             </div>
@@ -180,7 +189,7 @@
     </div>
 
       <!-- scripts -->
-    <script src="./src/utils/db.js" defer></script>
+    <script src ="./src/utils/db.js" defer></script>
     <script src="./src/utils/getAnimalInput.js" defer></script>
     <script src="./src/utils/fetch.js" defer></script>
     <script src="./src/components/createClickIcon.js" defer></script>

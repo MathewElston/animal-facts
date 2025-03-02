@@ -29,7 +29,10 @@ let selectedAnimal;
 let animalPictures;
 
 searchButton.onclick = async () => {
+    
+ // const selectedItem =  getSelectedCategory("categorySelect");
     const userInput = getAnimalInput("searchInput");
+    //userInput +=" " + selectedItem;
     animalData = await getAnimalResults(userInput);
     await createAnimalResults("resultsContainer", animalData, async (animal)=> {
         console.log("Animal Clicked: ", animal);
@@ -45,3 +48,6 @@ testButton.onclick = async () => {
         console.log("Clicked", data);
     });
 }
+const arrayList = ["dog","cat","fish"];
+dropDownMenu("categorytask","categories", arrayList);
+
