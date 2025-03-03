@@ -27,11 +27,13 @@ imagebutton.onclick = async()=>
 } */
 
 const searchButton = document.getElementById("btnSearchAnimals");
+const searchInput = document.getElementById("searchInput");
+
 let animalData;
 let selectedAnimal;
 let animalPictures;
 
-searchButton.onclick = async () => {
+const performSearch = async () => {
     const userInput = getAnimalInput("searchInput");
     animalData = await getAnimalResults(userInput);
     await createAnimalResults("resultsContainer", animalData, async (animal)=> {
@@ -44,6 +46,13 @@ searchButton.onclick = async () => {
 
     });
 }
+searchButton.onclick = performSearch();
+
+searchInput.addEventListener("keypress", (event) =>{
+    if (event.key === "Enter"){
+        performSearch();
+    }
+})
 const testButton = document.getElementById('testButton');
 const data = 'hi mom';
 testButton.onclick = async () => {
