@@ -11,7 +11,8 @@ db.loadFavorites();
 // }
 
 db.registerFavoritesCallback(createFavoritesBar);
-db.registerHistoryCallback(createHistoryBar)
+db.registerFavoritesCallback(createHistoryBar);
+db.registerHistoryCallback(createHistoryBar);
 createHistoryBar();
 createFavoritesBar();
 

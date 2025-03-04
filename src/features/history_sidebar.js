@@ -55,12 +55,21 @@ function createHistoryBar(){
                     case "addFavIcons":
                         child.textContent = "";
                         //Create add favorite button
-                        var starFill = (db.favorites.some((e) => e.animal.name === db.history[i].animal.name) ? "bi bi-star-fill" : "bi bi-star");
-                        createClickIcon(child, starFill, db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
-                            icon.setAttribute("id", "hoverIcon");
-                            icon.setAttribute("title", "Add Favorite");
-                            icon.style.visibility = "hidden";
-                        })
+                        if (db.favorites.some((e) => e.animal.name === db.history[i].animal.name)) { // if the animal is a favorite
+                            createClickIcon(child, "bi bi-star-fill", db.history[i], (animal) => { db.removeFavorite(animal) }).then((icon) => {
+                                icon.setAttribute("id", "hoverIcon");
+                                icon.setAttribute("title", "Remove Favorite");
+                                icon.style.visibility = "hidden";
+                            })
+                        }
+                        else {
+                            createClickIcon(child, "bi bi-star", db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
+                                icon.setAttribute("id", "hoverIcon");
+                                icon.setAttribute("title", "Add Favorite");
+                                icon.style.visibility = "hidden";
+                            })
+                        }
+                        
                         break;
                 }
                 nestedIterate(child);
