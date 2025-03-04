@@ -27,8 +27,8 @@ function createFavoritesBar() {
                 switch (child.getAttribute("name")) {
                     case "animalImg":
                         child.setAttribute("src", db.favorites[i].photos.photos[0].src.original + pexelsFormatting);
-                        child.setAttribute("width", "40px");
-                        child.setAttribute("height", "40px");
+                        // child.setAttribute("width", "40px");
+                        // child.setAttribute("height", "40px");
                         break;
                     case "animalName":
                         child.textContent = db.favorites[i].animal.name;
