@@ -43,7 +43,6 @@ function createFavoritesBar() {
                         }
                         break;
                     case "sortIcons":
-                        child.textContent = "";
 
                         //Create sorting buttons
                         createClickIcon(child, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon) => {
