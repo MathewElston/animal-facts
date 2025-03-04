@@ -26,8 +26,6 @@ function createHistoryBar(){
                 switch (child.getAttribute("name")) {
                     case "animalImg":
                         child.setAttribute("src", db.history[i].photos.photos[0].src.original + pexelsFormatting);
-                        // child.setAttribute("width", "40px");
-                        // child.setAttribute("height", "40px");
                         break;
                     case "animalName":
                         child.textContent = db.history[i].animal.name;
