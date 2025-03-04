@@ -5,7 +5,7 @@ db = new class {
     #favoritesKey = "af_favorites"; // TO-DO const syntax
     #historyKey = "af_history";
     #maxFavorites = 20;
-    #maxHistory = 20;
+    #maxHistory = 5;
     #localStorageAccess = false; // whether or not we can access localStorage
     #favorites = [];
     #history = [];
@@ -198,11 +198,11 @@ db = new class {
         if (!this.#localStorageAccess || !this.#validateSchema(animalData)) { return false; }
 
         // add a new element to the array with our history data
-        this.#history.push(animalData);
+        this.#history.unshift(animalData);
 
         // if the size is greater than max remove the oldest element
         while (this.#history.length > this.#maxHistory) {
-            this.#history.shift();
+            this.#history.pop();
         }
         this.#saveHistory();
         this.checkStorage();
