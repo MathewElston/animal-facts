@@ -31,6 +31,9 @@ function createHistoryBar(){
                         break;
                     case "animalName":
                         child.textContent = db.history[i].animal.name;
+                        child.addEventListener("click", () => {
+                            searchAnimal(db.history[i].animal, db.history[i].photos)
+                        });
                         break;
                     case "animalMotto":
                         child.textContent = db.history[i].animal.characteristics.slogan;

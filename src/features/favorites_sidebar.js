@@ -32,6 +32,10 @@ function createFavoritesBar() {
                         break;
                     case "animalName":
                         child.textContent = db.favorites[i].animal.name;
+                        child.textContent = db.history[i].animal.name;
+                        child.addEventListener("click", () => {
+                            searchAnimal(db.favorites[i].animal, db.favorites[i].photos)
+                        });
                         break;
                     case "animalMotto":
                         child.textContent = db.favorites[i].animal.characteristics.slogan;
