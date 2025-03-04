@@ -46,9 +46,9 @@ const performSearch = async () => {
 
     });
 }
-searchButton.onclick = performSearch();
+searchButton.onclick = performSearch;
 
-searchInput.addEventListener("keypress", (event) =>{
+searchInput.addEventListener("keypress", async (event) =>{
     if (event.key === "Enter"){
         performSearch();
     }
