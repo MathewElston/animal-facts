@@ -55,7 +55,8 @@ function createHistoryBar(){
                     case "addFavIcons":
                         child.textContent = "";
                         //Create add favorite button
-                        createClickIcon(child, "bi bi-star-fill", db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
+                        var starFill = (db.favorites.some((e) => e.animal.name === db.history[i].animal.name) ? "bi bi-star-fill" : "bi bi-star");
+                        createClickIcon(child, starFill, db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
                             icon.setAttribute("title", "Add Favorite");
                             icon.style.visibility = "hidden";
