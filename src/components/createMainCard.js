@@ -41,8 +41,25 @@ async function createMainCard(animal, animalPictures) {
 
         
     //Creates star element in fact cards, makes interactable and adds to sidebar
+    displayedAnimal = animal;
+    displayedPictures = animalPictures
+    createFavoritesIcon();
+}
+
+function createFavoritesIcon() {
     const favStarContainer = document.getElementById("favoritesStarContainer")
     favStarContainer.innerHTML = "";
-    createClickIcon(favStarContainer, "bi bi-star", { "animal": animal, "photos": animalPictures }, (animal) => { db.addFavorite(animal) });
 
+    if (db.favorites.some((e) => e.animal.name === displayedAnimal.name)) { // if the animal is a favorite
+        createClickIcon(favStarContainer, "bi bi-star-fill", {"animal": displayedAnimal, "photos": displayedPictures}, (animal) => { db.removeFavorite(animal) }).then((icon) => {
+            icon.setAttribute("id", "hoverIcon");
+            icon.setAttribute("title", "Remove Favorite");
+        })
+    }
+    else {
+        createClickIcon(favStarContainer, "bi bi-star", { "animal": displayedAnimal, "photos": displayedPictures }, (animal) => { db.addFavorite(animal) }).then((icon) => {
+            icon.setAttribute("id", "hoverIcon");
+            icon.setAttribute("title", "Add Favorite");
+        })
+    }
 }
