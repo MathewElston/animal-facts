@@ -5,6 +5,10 @@ const historyTemplate = historySidebar.children[0].cloneNode(true);
 //Function to create history bar using array of data
 
 function createHistoryBar(){
+    const clearHistoryButton = document.getElementById("clearHistoryButton");
+    clearHistoryButton.style.cursor = "pointer";
+    clearHistoryButton.addEventListener("click", () => {db.clearHistory();});
+
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
 
     historySidebar.innerHTML = "";
@@ -42,9 +46,19 @@ function createHistoryBar(){
                     case "animalIcons":
                         child.textContent = "";
                         //Create delete button
-                        createClickIcon(child, "bi bi-trash", db.history[i], (animal) => { db.removeHistory(animal) }).then((icon) => {
+                        createClickIcon(child, "bi bi-x-lg", db.history[i], (animal) => { db.removeHistory(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
-                            icon.style.visibility = "hidden"
+                            icon.setAttribute("title", "Delete");
+                            icon.style.visibility = "hidden";
+                        })
+                        break;
+                    case "addFavIcons":
+                        child.textContent = "";
+                        //Create add favorite button
+                        createClickIcon(child, "bi bi-star-fill", db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
+                            icon.setAttribute("id", "hoverIcon");
+                            icon.setAttribute("title", "Add Favorite");
+                            icon.style.visibility = "hidden";
                         })
                         break;
                 }

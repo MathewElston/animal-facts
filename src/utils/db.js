@@ -233,7 +233,8 @@ db = new class {
         if (!this.#localStorageAccess) { return false; }
         try {
             this.#history = [];
-            localStorage.setItem(this.#historyKey, "");
+            //localStorage.setItem(this.#historyKey, "");
+            this.#saveHistory();
             this.checkStorage();
             return true;
         }

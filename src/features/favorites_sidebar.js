@@ -47,18 +47,21 @@ function createFavoritesBar() {
                         //Create sorting buttons
                         createClickIcon(child, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
+                            icon.setAttribute("title", "Move Up");
                             icon.style.visibility = "hidden"
                         })
                         createClickIcon(child, "bi bi-caret-down-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteDown(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
+                            icon.setAttribute("title", "Move Down");
                             icon.style.visibility = "hidden"
                         })
                         break;
                     case "favoriteIcon":
                         child.textContent = "";
                         //Create delete button
-                        createClickIcon(child, "bi bi-star-fill", db.favorites[i], (animal) => { db.removeFavorite(animal) }).then((icon) => {
+                        createClickIcon(child, "bi bi bi-x-lg", db.favorites[i], (animal) => { db.removeFavorite(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
+                            icon.setAttribute("title", "Delete");
                             icon.style.visibility = "hidden"
                         })
                         break;
