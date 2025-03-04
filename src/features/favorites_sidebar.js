@@ -43,7 +43,6 @@ function createFavoritesBar() {
                         }
                         break;
                     case "sortIcons":
-                        child.textContent = "";
 
                         //Create sorting buttons
                         createClickIcon(child, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon) => {
@@ -58,7 +57,7 @@ function createFavoritesBar() {
                     case "favoriteIcon":
                         child.textContent = "";
                         //Create delete button
-                        createClickIcon(child, "bi bi-star-fill", db.favorites[i].animal.name, (animal) => { db.removeFavorite(animal) }).then((icon) => {
+                        createClickIcon(child, "bi bi-star-fill", db.favorites[i], (animal) => { db.removeFavorite(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
                             icon.style.visibility = "hidden"
                         })

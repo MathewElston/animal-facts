@@ -42,7 +42,7 @@ function createHistoryBar(){
                     case "animalIcons":
                         child.textContent = "";
                         //Create delete button
-                        createClickIcon(child, "bi bi-trash", db.history[i].animal.name, (animal) => { db.removeHistory(animal) }).then((icon) => {
+                        createClickIcon(child, "bi bi-trash", db.history[i], (animal) => { db.removeHistory(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
                             icon.style.visibility = "hidden"
                         })

@@ -138,10 +138,10 @@ db = new class {
     // returns true if favorite was removed and false if no such favorite
     // remove functions ignore #localStorageAccess and attempt to delete anyway since storage may just be full
     // they also run checkStorage again to see if there's now free space to store new information
-    removeFavorite = function(name) {
+    removeFavorite = function(animal) {
         var elementRemoved = false; // true if an element was found and removed
         for (var fCnt = 0; fCnt < this.#favorites.length; fCnt++) {
-            if (this.#favorites[fCnt].animal.name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
+            if (this.#favorites[fCnt].animal.name.toUpperCase() === animal.animal.name.toUpperCase()) { // loop through the entire array just in case there are dupes
                 this.#favorites.splice(fCnt, 1); // remove the named element
                 fCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
@@ -210,10 +210,12 @@ db = new class {
 
     // remove from user history by name
     // returns true if history was removed and false if no such history
-    removeHistory = function (name) {
+    removeHistory = function (animal) {
         var elementRemoved = false; // true if an element was found and removed
         for (var hCnt = 0; hCnt < this.#history.length; hCnt++) {
-            if (this.#history[hCnt].animal.name.toUpperCase() === name.toUpperCase()) { // loop through the entire array just in case there are dupes
+            if (this.#history[hCnt].animal.name.toUpperCase() === animal.animal.name.toUpperCase() && // loop through the entire array just in case there are dupes
+                this.#history[hCnt].time === animal.time) {
+                console.log(animal.time);
                 this.#history.splice(hCnt, 1); // remove the named element
                 hCnt--; // decrement the count to correct for removed item
                 elementRemoved = true;
