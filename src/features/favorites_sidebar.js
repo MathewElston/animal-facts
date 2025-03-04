@@ -1,16 +1,16 @@
+//Create global variables for sidebar element in HTML doc
+const favoritesSidebar = document.getElementById("favorites_sidebar");
+const favoritesTemplate = favoritesSidebar.children[0].cloneNode(true);
+
 //Function to create favorites bar using array of data
 
 function createFavoritesBar() {
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
 
-    //Create variable for sidebar element in HTML doc
-    const parent = document.getElementById("favorites_sidebar");
-    const listTemplate = parent.children[0].cloneNode(true);
-
-    parent.innerHTML = "";
+    favoritesSidebar.innerHTML = "";
 
     if (db.favorites.length === 0) {
-        parent.textContent = "You dont have any favorites!";
+        favoritesSidebar.textContent = "You dont have any favorites!";
         return;
     }
 
@@ -18,7 +18,7 @@ function createFavoritesBar() {
     for (let i = 0; i < db.favorites.length; i++) {
 
         //Create the list item we'll be editing from the template
-        var li = listTemplate.cloneNode(true);
+        var li = favoritesTemplate.cloneNode(true);
 
 
         // TO-DO change this to use querySelector later
@@ -70,7 +70,7 @@ function createFavoritesBar() {
         nestedIterate(li);
         li.addEventListener('mouseenter', iconHoverIn);
 
-        parent.appendChild(li);
+        favoritesSidebar.appendChild(li);
 
     }
 }

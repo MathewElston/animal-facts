@@ -1,16 +1,16 @@
+//Create global variables for sidebar element in HTML doc
+const historySidebar = document.getElementById("history_sidebar");
+const historyTemplate = historySidebar.children[0].cloneNode(true);
+
 //Function to create history bar using array of data
 
 function createHistoryBar(){
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
 
-    //Create variable for sidebar element in HTML doc
-    const parent = document.getElementById("history_sidebar");
-    const listTemplate = parent.children[0].cloneNode(true);
-
-    parent.innerHTML = "";
+    historySidebar.innerHTML = "";
 
     if (db.history.length === 0) {
-        parent.textContent = "You dont have any history!";
+        historySidebar.textContent = "You dont have any history!";
         return;
     }
 
@@ -18,7 +18,7 @@ function createHistoryBar(){
     for (let i = 0; i < db.history.length; i++){
 
         //Create the list item we'll be editing from the template
-        var li = listTemplate.cloneNode(true);
+        var li = historyTemplate.cloneNode(true);
 
         // TO-DO change this to use querySelector later
         function nestedIterate(node) {
@@ -54,6 +54,6 @@ function createHistoryBar(){
         nestedIterate(li);
         li.addEventListener('mouseenter', iconHoverIn);
 
-        parent.appendChild(li);
+        historySidebar.appendChild(li);
     }
 }
