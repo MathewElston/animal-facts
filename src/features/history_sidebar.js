@@ -9,7 +9,7 @@ function createHistoryBar(){
     clearHistoryButton.style.cursor = "pointer";
     clearHistoryButton.addEventListener("click", () => {db.clearHistory();});
 
-    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
+    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
     historySidebar.innerHTML = "";
 
@@ -33,9 +33,6 @@ function createHistoryBar(){
                         break;
                     case "animalName":
                         child.textContent = db.history[i].animal.name;
-                        child.addEventListener("click", () => {
-                            searchAnimal(db.history[i].animal, db.history[i].photos)
-                        });
                         break;
                     case "animalMotto":
                         child.textContent = db.history[i].animal.characteristics.slogan;
@@ -43,7 +40,12 @@ function createHistoryBar(){
                             child.textContent = db.history[i].animal.taxonomy.scientific_name;
                         }
                         break;
-                    case "animalIcons":
+                    case "animalDate":
+                        child.textContent = new Date(db.history[i].time).toLocaleDateString("en-US", {
+                            hour:"numeric", minute:"numeric"
+                        });
+                        break;
+                    case "removeIcon":
                         child.textContent = "";
                         //Create delete button
                         createClickIcon(child, "bi bi-x-lg", db.history[i], (animal) => { db.removeHistory(animal) }).then((icon) => {
@@ -63,7 +65,7 @@ function createHistoryBar(){
                             })
                         }
                         else {
-                            createClickIcon(child, "bi bi-star", db.history[i], (animal) => { db.addFavorite(animal) }).then((icon) => {
+                            createClickIcon(child, "bi bi-star", db.history[i], (animal) => { db.addFavorite(animal); }).then((icon) => {
                                 icon.setAttribute("id", "hoverIcon");
                                 icon.setAttribute("title", "Add Favorite");
                                 icon.style.visibility = "hidden";
@@ -76,6 +78,9 @@ function createHistoryBar(){
             }
         }
         nestedIterate(li);
+        li.addEventListener("click", () => {
+            searchAnimal(db.history[i].animal, db.history[i].photos)
+        });
         li.addEventListener('mouseenter', iconHoverIn);
 
         historySidebar.appendChild(li);

@@ -5,7 +5,7 @@ const favoritesTemplate = favoritesSidebar.children[0].cloneNode(true);
 //Function to create favorites bar using array of data
 
 function createFavoritesBar() {
-    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=40&w=40";
+    const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
     favoritesSidebar.innerHTML = "";
 
@@ -31,10 +31,6 @@ function createFavoritesBar() {
                     case "animalName":
                         child.textContent = db.favorites[i].animal.name;
                         child.textContent = db.favorites[i].animal.name;
-                        child.addEventListener("click", () => {
-                            searchAnimal(db.favorites[i].animal, db.favorites[i].photos)
-                            db.addHistory(db.favorites[i]);
-                        });
                         break;
                     case "animalMotto":
                         child.textContent = db.favorites[i].animal.characteristics.slogan;
@@ -42,8 +38,14 @@ function createFavoritesBar() {
                             child.textContent = db.favorites[i].animal.taxonomy.scientific_name;
                         }
                         break;
+                        
+                    case "animalDate":
+                        child.textContent = new Date(db.history[i].time).toLocaleDateString("en-US", {
+                            hour: "numeric", minute: "numeric"
+                        });
+                        break;
                     case "sortIcons":
-
+                        child.textContent="";
                         //Create sorting buttons
                         createClickIcon(child, "bi bi-caret-up-fill", db.favorites[i].animal.name, (animal) => { db.moveFavoriteUp(animal) }).then((icon) => {
                             icon.setAttribute("id", "hoverIcon");
@@ -56,7 +58,7 @@ function createFavoritesBar() {
                             icon.style.visibility = "hidden"
                         })
                         break;
-                    case "favoriteIcon":
+                    case "removeIcon":
                         child.textContent = "";
                         //Create delete button
                         createClickIcon(child, "bi bi bi-x-lg", db.favorites[i], (animal) => { db.removeFavorite(animal) }).then((icon) => {
@@ -70,6 +72,11 @@ function createFavoritesBar() {
             }
         }
         nestedIterate(li);
+        li.addEventListener("click", () => {
+            searchAnimal(db.favorites[i].animal, db.favorites[i].photos)
+            db.addHistory(db.favorites[i]);
+        });
+
         li.addEventListener('mouseenter', iconHoverIn);
 
         favoritesSidebar.appendChild(li);

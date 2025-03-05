@@ -8,7 +8,10 @@ async function createClickIcon(parentId,iconFont, data, onSelect) {
     iconElement.setAttribute("class",iconClass);
     iconElement.style.cursor = "pointer";
 
-    iconElement.addEventListener('click', () => {
+    iconElement.addEventListener('click', (e) => {
+        // added stopPropagation to keep favorites/history icons from triggering the click events of
+        // the cards that host them
+        e.stopPropagation();
         onSelect(data);
     });
     parent.appendChild(iconElement);
