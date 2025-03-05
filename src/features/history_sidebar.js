@@ -38,6 +38,9 @@ function createHistoryBar(){
                         if (child.textContent == "") {
                             child.textContent = db.history[i].animal.taxonomy.scientific_name;
                         }
+                        if (!db.history[i].animal.taxonomy.scientific_name) {
+                            child.textContent = "Habitat: " + db.history[i].animal.characteristics.habitat;
+                        }
                         break;
                     case "animalIcons":
                         child.textContent = "";

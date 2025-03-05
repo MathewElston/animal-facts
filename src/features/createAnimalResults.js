@@ -26,6 +26,13 @@ async function createAnimalResults(parentId, animalResults, onSelect) {
         cardHeader.innerText = animal.name;
         cardText.innerText = animal.characteristics.slogan;
 
+        if (!animal.characteristics.slogan) {
+            cardText.innerText = animal.taxonomy.scientific_name;
+        }
+        if (!animal.taxonomy.scientific_name) {
+            cardText.innerText = "Habitat: " + animal.characteristics.habitat;
+        }
+
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
         cardDiv.appendChild(cardHeader);

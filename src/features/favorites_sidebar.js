@@ -41,6 +41,9 @@ function createFavoritesBar() {
                         if (child.textContent == "") {
                             child.textContent = db.favorites[i].animal.taxonomy.scientific_name;
                         }
+                        if (!db.favorites[i].animal.taxonomy.scientific_name) {
+                            child.textContent = "Habitat: " + db.favorites[i].animal.characteristics.habitat;
+                        }
                         break;
                     case "sortIcons":
 
