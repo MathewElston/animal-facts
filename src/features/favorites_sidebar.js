@@ -40,7 +40,7 @@ function createFavoritesBar() {
                         break;
                         
                     case "animalDate":
-                        child.textContent = new Date(db.history[i].time).toLocaleDateString("en-US", {
+                        child.textContent = new Date(db.favorites[i].time).toLocaleDateString("en-US", {
                             hour: "numeric", minute: "numeric"
                         });
                         break;
