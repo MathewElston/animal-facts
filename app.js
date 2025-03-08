@@ -32,17 +32,26 @@ const searchInput = document.getElementById("searchInput");
 let animalData;
 let selectedAnimal;
 let animalPictures;
+let animalPicArray;
 
 const performSearch = async () => {
     const userInput = getAnimalInput("searchInput");
+
     animalData = await getAnimalResults(userInput);
+
     await createAnimalResults("resultsContainer", animalData, async (animal)=> {
         console.log("Animal Clicked: ", animal);
-        animalPictures = await fetchImages("query="+animal.name);
-        searchAnimal(animal,animalPictures);
+
+        //80 is the max per page
+         animalPictures = await fetchImages("per_page=80&query=" + animal.name);
+///////////filter out irelevent pics
+        animalPicArray = await picResultFilter(animal, animalPictures);
+        
+        searchAnimal(animal,animalPicArray);
+        
 
         //Adds animal to history sidebar
-        db.addHistory({"animal": animal, "photos": animalPictures})
+        ////////////////////////////db.addHistory({"animal": animal, "photos": animalPicArray})
 
     });
 }

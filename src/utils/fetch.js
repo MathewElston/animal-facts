@@ -21,6 +21,7 @@ const animalHeaders = new Headers({
   const imagesHeaders = new Headers({
     Authorization: "Qna0ffg6Y6hV8qsX7hBYb92BxvTFW6fATIb0eMJ9TTQzlCnpp9GG9EmK",
   });
+  
   const imagesURL = "https://api.pexels.com/v1/search?";
   
   async function fetchImages(args) {
