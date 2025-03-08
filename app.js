@@ -45,7 +45,7 @@ const performSearch = async () => {
         console.log("Animal Clicked: ", animal);
 
         //80 is the max per page
-         animalPictures = await fetchImages("per_page=80&query=" + animal.name);
+         animalPictures = await fetchImages("query=" + animal.name);
 ///////////filter out irelevent pics
         animalPicArray = await picResultFilter(animal, animalPictures);
         

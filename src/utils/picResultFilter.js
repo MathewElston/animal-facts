@@ -39,21 +39,21 @@ async function picResultFilter (animal, animalPictures) {
 
     //if still less than 7  search the api using the scientific_name
     if (animalPicArray.length < 7 && animal.characteristics.scientific_name) {
-        animalPictures = await fetchImages("per_page=80&query=" + animal.characteristics.scientific_name);
+        animalPictures = await fetchImages("query=" + animal.characteristics.scientific_name);
 
         forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray);
     }
 
     //if still less than 7 search the api using the common names
     if (animalPicArray.length < 7 && animal.characteristics["other_name(s)"]) {
-        animalPictures = await fetchImages("per_page=80&query=" + animal.characteristics["other_name(s)"]);
+        animalPictures = await fetchImages("query=" + animal.characteristics["other_name(s)"]);
 
         forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray);
     }
 
     //if still less than 7 search the api using the animal name with '+' in spaces (this works better than just sending animal.name but not always)
     if (animalPicArray.length < 7) {
-        animalPictures = await fetchImages("per_page=80&query=" + (animal.name).replace(/\s+/g, "+"));
+        animalPictures = await fetchImages("query=" + (animal.name).replace(/\s+/g, "+").replace("'", ""));
 
         forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray);
     }
