@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animal Encyclopedia</title>
     
@@ -32,15 +32,17 @@
         <div class="col-xl-2 col-lg-12 pl-5">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">History</h5>
+              <h5 class="card-title d-flex justify-content-between">History<i id="clearHistoryButton" title="Clear All History" class="bi bi-trash"></i></h5>
               <p class="card-text">
 
-                <ul class="list-group list-group-flush" id="history_sidebar">
-                  <li class="px-0 list-group-item d-flex justify-content-between lh-sm">
+                <!-- <ul class="list-group list-group-flush" id="history_sidebar">
+                  <li class="px-0 list-group-item d-flex justify-content-around lh-sm">
+                    <span name="addFavIcons">IconsHere</span>
                     <img name="animalImg" class="rounded-circle" width="40px" height="40px"></img>
                     <div name="textDiv">
                       <a name = "animalName" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover" href="#">AnimalName</a>
                     </br><small name="animalMotto" class="text-muted">AnimalMotto</small>
+                    </br><em name="animalDate" class="text-muted">Added: 3/3/25 9:20PM</em>
                     </div>
                     <span name="animalIcons">IconsHere</span>
                   </li>
@@ -48,7 +50,26 @@
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A third item</a></li>
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">A fourth item</a></li>
                   <li class="list-group-item"><a href="#" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">And a fifth one</a></li>
-                </ul>
+                </ul> -->
+
+                <div id="history_sidebar" class="list-group">
+                  <a href="#a" class="list-group-item list-group-item-action px-1" aria-current="true">
+                    <div class="d-flex align-items-center">
+                      <span name="addFavIcons" class="mx-2">FAVORITE</span>
+                      <img name="animalImg" class="rounded-circle" width="50px" height="50px" alt="Animal Image">
+                      <div class="ms-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h5 name="animalName" class="mb-0">NAME</h5>
+                          <small name="removeIcon" class="px-2">DELETE</small>
+                        </div>
+                        <p name="animalMotto" class="mb-0 text-muted">MOTTO</p>
+                        <small name="animalDate" class="text-muted fst-italic">DATE</small>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+
 
               </p>
             </div>
@@ -78,6 +99,7 @@
             </div>
 
           </div>
+
    
 
     <!-- Favorites sidebar -->
@@ -87,7 +109,7 @@
               <h5 class="card-title">Favorites</h5>
               <p class="card-text">
         
-              <ul class="list-group list-group-flush" id="favorites_sidebar">
+              <!-- <ul class="list-group list-group-flush" id="favorites_sidebar">
                 <li class="px-0 list-group-item d-flex justify-content-between lh-sm">
                   <span name="sortIcons"></span>
                   <img name="animalImg" class="rounded-circle" width="40px" height="40px"></img>
@@ -109,7 +131,24 @@
                 <li class="list-group-item"><a href="#"
                     class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">And a
                     fifth one</a></li>
-              </ul>
+              </ul> -->
+
+              <div id="favorites_sidebar" class="list-group">
+                <a href="#a" class="list-group-item list-group-item-action px-1" aria-current="true">
+                  <div class="d-flex align-items-center">
+                    <span name="sortIcons" class="mx-2">FAVORITE</span>
+                    <img name="animalImg" class="rounded-circle" width="50px" height="50px" alt="Animal Image">
+                    <div class="ms-3 w-100">
+                      <div class="d-flex justify-content-between">
+                        <h5 name="animalName" class="mb-0">NAME</h5>
+                        <small name="removeIcon" class="px-2">DELETE</small>
+                      </div>
+                      <p name="animalMotto" class="mb-0 text-muted">MOTTO</p>
+                      <small name="animalDate" class="text-muted fst-italic">DATE</small>
+                    </div>
+                  </div>
+                </a>
+              </div>
         
               </p>
             </div>
