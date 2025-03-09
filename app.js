@@ -26,6 +26,7 @@ const searchInput = document.getElementById("searchInput");
 let animalData;
 let selectedAnimal;
 let animalPictures;
+let animalPicArray;
 
 // tl;dr this works but might be redundant; shouldn't break anything
 // not sure if this is this what selectedAnimal and animalPictures are supposed to do, will clarify on wed (3/5)
@@ -37,11 +38,19 @@ let displayedPictures;
 
 const performSearch = async () => {
     const userInput = getAnimalInput("searchInput");
+
     animalData = await getAnimalResults(userInput);
+
     await createAnimalResults("resultsContainer", animalData, async (animal)=> {
         console.log("Animal Clicked: ", animal);
-        animalPictures = await fetchImages("query="+animal.name);
-        searchAnimal(animal,animalPictures);
+
+        //80 is the max per page
+         animalPictures = await fetchImages("query=" + animal.name);
+///////////filter out irelevent pics
+        animalPicArray = await picResultFilter(animal, animalPictures);
+        
+        searchAnimal(animal,animalPicArray);
+        
 
         //Adds animal to history sidebar
         db.addHistory({"animal": animal, "photos": animalPictures});
