@@ -45,6 +45,7 @@ const performSearch = async () => {
 
         //Adds animal to history sidebar
         db.addHistory({"animal": animal, "photos": animalPictures});
+       const caption =  getRelevantCaptions(animal);     
     });
 }
 searchButton.onclick = performSearch;
@@ -61,3 +62,19 @@ testButton.onclick = async () => {
         console.log("Clicked", data);
     });
 }
+
+
+async function clearResults()
+{
+    const claim = document.getElementById("resultsContainer");
+    resultsContainer.innerHTML = '';
+}
+
+document.getElementById("btnSearchAnimals").addEventListener("click", function()
+{
+    const search = document.getElementById("searchInput").value;
+
+    clearResults();
+    getAnimalResults();
+})
+
