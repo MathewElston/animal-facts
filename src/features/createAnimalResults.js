@@ -22,9 +22,9 @@ async function createAnimalResults(parentId, animalResults, onSelect) {
         cardBody.classList.add("card-body");
         cardTitle.classList.add("card-title");
         cardText.classList.add("card-text");
-
+        
         cardHeader.innerText = animal.name;
-        cardText.innerText = animal.characteristics.slogan;
+        cardText.innerText = getRelevantCaptions(animal);
 
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
