@@ -1,7 +1,8 @@
-async function createMainCard(animal, animalPictures) {
+//if animalPictures goes through the picResultFilter then animalPictures is already animalPictures.photos
+function createMainCard(animal, animalPictures) {
 
     //get landscape image
-    const imageSource = animalPictures.photos[0].src.landscape;
+    const imageSource = animalPictures[0].src.landscape;
 
     //get slogan or/and feature if exists
     let slogan = " ";
@@ -20,7 +21,7 @@ async function createMainCard(animal, animalPictures) {
             <div class="col-md-7">
                 <figure>
                 <img src="${imageSource}" class="img-fluid rounded-start" alt="text" >
-                <figcaption><small class="text-body-secondary">Taken by ${animalPictures.photos[0].photographer} on Pexels.</small></figcaption>
+                <figcaption><small class="text-body-secondary">Taken by ${animalPictures[0].photographer} on Pexels.</small></figcaption>
                 </figure>
             </div>
             <div class="col-md-5">

@@ -40,8 +40,8 @@ function generateFactCard(facts, sectionTitle, image) {
   return html;
 }
 
-
-async function createFactCards(animal, animalPictures) {
+//if animalPictures goes through the picResultFilter then animalPictures is already animalPictures.photos
+function createFactCards(animal, animalPictures) {
   const factCardSection = document.getElementById('factCardSection');
 
   let htmlContent = '';
@@ -70,7 +70,7 @@ async function createFactCards(animal, animalPictures) {
         const factSubset = facts.slice(j, j + chunkSize);
         
         //create fact cards for characteristics
-        htmlContent += generateFactCard(factSubset, 'Characteristics', animalPictures.photos[++imgCount]);
+        htmlContent += generateFactCard(factSubset, 'Characteristics', animalPictures[++imgCount]);
       }
 
       continue; //skip the rest of the loop for the current section
@@ -81,7 +81,7 @@ async function createFactCards(animal, animalPictures) {
     }
 
     //create fact cards taxononmy and locations
-    htmlContent += generateFactCard(facts, section, animalPictures.photos[++imgCount]);
+    htmlContent += generateFactCard(facts, section, animalPictures[++imgCount]);
   }
   //insert the html content
   factCardSection.innerHTML = htmlContent;
