@@ -106,7 +106,14 @@
         <div class="col-xl-2 col-lg-12 pr-5">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Favorites</h5>
+              <h5 class="card-title d-flex justify-content-between">Favorites
+                <div>
+                  <i id="favSortOrderToggle" title="Sort Descending" class="bi bi-sort-down-alt"></i>
+                  <i id="favSortAlphabetical" title="Sort by Name" class="bi bi-alphabet-uppercase"></i>
+                  <i id="favSortChronological" title="Sort by Time" class="bi bi-clock"></i>
+                </div>
+              </h5>
+              <!-- <h5 class="card-title">Favorites</h5> -->
               <p class="card-text">
         
               <!-- <ul class="list-group list-group-flush" id="favorites_sidebar">
@@ -164,9 +171,6 @@
     <script src="./src/utils/db.js" defer></script>
     <script src="./src/utils/getAnimalInput.js" defer></script>
     <script src="./src/utils/fetch.js" defer></script>
-
-    <script src="./src/utils/picResultFilter.js" defer></script>
-
     <script src="./src/components/createClickIcon.js" defer></script>
     <script src ="./src/components/createMainCard.js" defer> </script>
     <script src="./src/components/searchbar.js" defer></script>
@@ -174,7 +178,6 @@
     <script src="./src/features/createAnimalResults.js" defer></script>
     <script src="./src/features/history_sidebar.js" defer></script>
     <script src="./src/features/favorites_sidebar.js" defer></script>
-    <script src="./src/utils/getRelevantCaptions.js" defer></script>
     <script src="app.js" defer></script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
