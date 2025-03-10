@@ -4,6 +4,7 @@
 db = new class {
     #favoritesKey = "af_favorites"; // TO-DO const syntax
     #historyKey = "af_history";
+    #sortKey = "af_sort";
     #maxFavorites = 20;
     #maxHistory = 20;
     #localStorageAccess = false; // whether or not we can access localStorage
@@ -11,6 +12,7 @@ db = new class {
     #history = [];
     #historyCallbacks = []; // callbacks for when #history is saved
     #favoritesCallbacks = []; // callbacks for when #favorites is saved
+    #sortFavDescending = true; // the order of the favorites sort feature
 
     // generic accessors
     //get favoritesKey() { return this.#favoritesKey; } // should not ever need to be accessed outside class
@@ -19,6 +21,13 @@ db = new class {
     get maxHistory() { return this.#maxHistory; }
     get favorites() { return this.#favorites; }
     get history() { return this.#history; }
+    get sortFavDescending() { return this.#sortFavDescending; }
+
+    toggleFavSort() {
+        this.#sortFavDescending = !this.#sortFavDescending;
+        this.#saveFavorites();
+        return this.#sortFavDescending;
+    }
 
     // checks whether localStorage is available for use
     // returnes true if avaiable, and false if not
@@ -52,6 +61,12 @@ db = new class {
             localStorage.getItem(this.#favoritesKey) === "") {
             return false;
         }
+
+        // load the sort order
+        if (!localStorage.getItem(this.#sortKey) === null && // if we've saved a sort order before
+            !localStorage.getItem(this.#sortKey) === "") {
+            this.#sortFavDescending = (localStorage.getItem(this.#sortKey) === "DESC");
+            }
 
         this.#favorites = JSON.parse(localStorage.getItem(this.#favoritesKey));
 
@@ -95,6 +110,9 @@ db = new class {
     #saveFavorites = function() {
         if (!this.#localStorageAccess) { return false; }
         localStorage.setItem(this.#favoritesKey, JSON.stringify(this.#favorites));
+
+        // save sort order
+        localStorage.setItem(this.#sortKey, this.#sortFavDescending ? "DESC" : "ASC");
 
         // call all registered callbacks when we save favorites
         for (var cbIndex = 0; cbIndex < this.#favoritesCallbacks.length; cbIndex++) {

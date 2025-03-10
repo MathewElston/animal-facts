@@ -49,6 +49,7 @@ function createMainCard(animal, animalPictures) {
 
 function createFavoritesIcon() {
     const favStarContainer = document.getElementById("favoritesStarContainer")
+    if (favStarContainer === null) { return false; } // return if we dont have a main card loaded
     favStarContainer.innerHTML = "";
 
     if (db.favorites.some((e) => e.animal.name === displayedAnimal.name)) { // if the animal is a favorite
