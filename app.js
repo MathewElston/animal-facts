@@ -64,13 +64,6 @@ searchInput.addEventListener("keypress", async (event) =>{
         performSearch();
     }
 })
-const testButton = document.getElementById('testButton');
-const data = 'hi mom';
-testButton.onclick = async () => {
-    createClickIcon('resultsContainer','bi bi-box2-heart-fill', data, (data) => {
-        console.log("Clicked", data);
-    });
-}
 
 
 async function clearResults()
