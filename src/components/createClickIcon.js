@@ -1,6 +1,6 @@
 async function createClickIcon(parentId,iconFont, data, onSelect) {
     const parent = parentId;
-    if (typeof parentId === "String") {
+    if (typeof parentId === "string") {
     parent = document.getElementById(parentId);
     }
     const iconClass = iconFont;
