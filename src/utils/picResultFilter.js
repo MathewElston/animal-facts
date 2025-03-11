@@ -18,7 +18,6 @@ function forLoopfilter(animalPictures, animalName, common_name, other_names, ani
 
 //get animal and animalPictures objects
 async function picResultFilter (animal, animalPictures) {
-    console.log("pic result filter");
     // get all names safely
     const animalName = (animal.name || "").toLowerCase().trim();
     const common_name = (animal.characteristics.common_name || "").toLowerCase().trim();
