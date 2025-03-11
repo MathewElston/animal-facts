@@ -53,8 +53,7 @@ const performSearch = async () => {
         
 
         //Adds animal to history sidebar
-        db.addHistory({"animal": animal, "photos": animalPictures});
-       const caption =  getRelevantCaptions(animal);     
+        db.addHistory({"animal": animal, "photos": animalPictures}); 
     });
 }
 searchButton.onclick = performSearch;
