@@ -2,13 +2,13 @@
 const historySidebar = document.getElementById("history_sidebar");
 const historyTemplate = historySidebar.children[0].cloneNode(true);
 
+// create the clear history button
+const clearHistoryButton = document.getElementById("clearHistoryButton");
+clearHistoryButton.style.cursor = "pointer";
+clearHistoryButton.addEventListener("click", () => { db.clearHistory(); });
+
 //Function to create history bar using array of data
-
 function createHistoryBar(){
-    const clearHistoryButton = document.getElementById("clearHistoryButton");
-    clearHistoryButton.style.cursor = "pointer";
-    clearHistoryButton.addEventListener("click", () => {db.clearHistory();});
-
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
     historySidebar.innerHTML = "";

@@ -275,7 +275,7 @@ db = new class {
         }
 
         // invert the sorting direction if we're sorting descending
-        var directionMult = (direction === "ascending" ? 1 : -1);
+        var directionMult = (direction === "descending" ? 1 : -1);
 
         // sort the array based on the parameters sent
         if (type === "name") {

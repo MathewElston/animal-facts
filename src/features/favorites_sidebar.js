@@ -2,10 +2,22 @@
 const favoritesSidebar = document.getElementById("favorites_sidebar");
 const favoritesTemplate = favoritesSidebar.children[0].cloneNode(true);
 
-//Function to create favorites bar using array of data
+const favSortOrder = document.getElementById("favSortOrder");
+const favSortName = document.getElementById("favSortName");
+const favSortTime = document.getElementById("favSortTime");
+favSortOrder.style.cursor = "pointer";
+favSortName.style.cursor = "pointer";
+favSortTime.style.cursor = "pointer";
+favSortName.addEventListener("click", () => { db.sortFavorites("name", db.sortFavDescending ? "descending" : "ascending") });
+favSortTime.addEventListener("click", () => { db.sortFavorites("time", db.sortFavDescending ? "descending" : "ascending") });
+favSortOrder.addEventListener("click", () => { db.toggleFavSort() });
 
+//Function to create favorites bar using array of data
 function createFavoritesBar() {
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
+
+    // set the sort order icon
+    favSortOrder.setAttribute("class", "bi bi-sort-down" + (db.sortFavDescending ? "-alt" : ""));
 
     favoritesSidebar.innerHTML = "";
 
