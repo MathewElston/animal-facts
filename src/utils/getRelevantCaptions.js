@@ -6,7 +6,8 @@ function getRelevantCaptions(animalData)
     {
         if(characterVariable[key])
         {
-            return `${key}: ${characterVariable[key]}`;
+            let string = `${key}: ${characterVariable[key]}`
+            return string.replace(/_/g," ");
         }
     }
    
