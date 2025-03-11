@@ -53,8 +53,7 @@ const performSearch = async () => {
         
 
         //Adds animal to history sidebar
-        db.addHistory({"animal": animal, "photos": animalPictures});
-       const caption =  getRelevantCaptions(animal);     
+        db.addHistory({"animal": animal, "photos": animalPictures}); 
     });
 }
 searchButton.onclick = performSearch;
@@ -62,6 +61,7 @@ searchButton.onclick = performSearch;
 searchInput.addEventListener("keypress", async (event) =>{
     if (event.key === "Enter"){
         performSearch();
+        clearResults();
     }
 })
 
@@ -77,6 +77,6 @@ document.getElementById("btnSearchAnimals").addEventListener("click", function()
     const search = document.getElementById("searchInput").value;
 
     clearResults();
-    getAnimalResults();
+    //getAnimalResults();
 })
 
