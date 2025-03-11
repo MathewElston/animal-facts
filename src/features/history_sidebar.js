@@ -79,7 +79,9 @@ function createHistoryBar(){
         }
         nestedIterate(li);
         li.addEventListener("click", () => {
-            searchAnimal(db.history[i].animal, db.history[i].photos.photos)
+            displayedAnimal = db.history[i].animal;
+            displayedPictures = db.history[i].photos;
+            searchAnimal(db.history[i].animal, db.history[i].photos)
         });
         li.addEventListener('mouseenter', iconHoverIn);
 

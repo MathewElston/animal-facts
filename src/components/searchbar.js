@@ -3,10 +3,11 @@ async function getAnimalResults(searchInput) {
     return animalResults
 }
 
-async function searchAnimal(animal,animalPictures) {    
+async function searchAnimal(animal,animalPictures) { 
+    animalPicArray = await picResultFilter(animal, animalPictures);   
     //call function to display maincard
-    await createMainCard(animal,animalPictures);
+    await createMainCard(animal,animalPicArray);
 
     //call function to display fact cards
-    await createFactCards(animal,animalPictures);
+    await createFactCards(animal,animalPicArray);
 }                

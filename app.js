@@ -47,9 +47,12 @@ const performSearch = async () => {
         //80 is the max per page
          animalPictures = await fetchImages("query=" + animal.name);
 ///////////filter out irelevent pics
-        animalPicArray = await picResultFilter(animal, animalPictures);
-        
-        searchAnimal(animal,animalPicArray);
+        //animalPicArray = await picResultFilter(animal, animalPictures);
+        //Creates star element in fact cards, makes interactable and adds to sidebar
+        displayedAnimal = animal;
+        displayedPictures = animalPictures;
+
+        searchAnimal(animal,animalPictures);
         
 
         //Adds animal to history sidebar
