@@ -18,6 +18,7 @@ function createFavoritesBar() {
 
     // set the sort order icon
     favSortOrder.setAttribute("class", "bi bi-sort-down" + (db.sortFavDescending ? "-alt" : ""));
+    favSortOrder.setAttribute("title", "Sort " + (db.sortFavDescending ? "Descending" : "Ascending"));
 
     favoritesSidebar.innerHTML = "";
 
