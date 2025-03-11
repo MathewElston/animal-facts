@@ -86,7 +86,9 @@ function createFavoritesBar() {
         }
         nestedIterate(li);
         li.addEventListener("click", () => {
-            searchAnimal(db.favorites[i].animal, db.favorites[i].photos.photos)
+            displayedAnimal = db.favorites[i].animal;
+            displayedPictures = db.favorites[i].photos;
+            searchAnimal(db.favorites[i].animal, db.favorites[i].photos)
             db.addHistory(db.favorites[i]);
         });
 

@@ -16,7 +16,7 @@ function createMainCard(animal, animalPictures) {
     
     //insert the mainCardSection html
     document.getElementById('mainCardSection').innerHTML = 
-        `<div class="card mb-3" style="max-width: 1200px;">
+        `<div class="card mb-3">
             <div class="row g-0">
             <div class="col-md-7">
                 <figure>
@@ -41,9 +41,6 @@ function createMainCard(animal, animalPictures) {
         </div>`;
 
         
-    //Creates star element in fact cards, makes interactable and adds to sidebar
-    displayedAnimal = animal;
-    displayedPictures = animalPictures
     createFavoritesIcon();
 }
 
