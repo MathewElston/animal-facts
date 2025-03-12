@@ -34,12 +34,12 @@
             <!-- TABS -->
             <ul class="nav nav-tabs nav-justified " id="tab_container" role="tablist" style="margin-left:-1px; margin-right:-1px; margin-top:-1px">
               <li class="nav-item " role="presentation">
-                <button class="nav-link active " id="history_tab" data-bs-toggle="tab" data-bs-target="#history_tab_pane" type="button"
-                  role="tab" aria-controls="history_tab_pane" aria-selected="true">History</button>
+                <button class="nav-link active text-body" id="history_tab" data-bs-toggle="tab" data-bs-target="#history_tab_pane" type="button"
+                  role="tab" aria-controls="history_tab_pane" aria-selected="true"><h5>History</h5></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="favorites_tab" data-bs-toggle="tab" data-bs-target="#favorites_tab_pane" type="button"
-                  role="tab" aria-controls="favorites_tab_pane" aria-selected="false">Favorites</button>
+                <button class="nav-link text-body" id="favorites_tab" data-bs-toggle="tab" data-bs-target="#favorites_tab_pane" type="button"
+                  role="tab" aria-controls="favorites_tab_pane" aria-selected="false"><h5>Favorites</h5></button>
               </li>
             </ul>
             <div id="tab_content" class="tab-content">
@@ -52,7 +52,7 @@
             <!-- FULL DISPLAY -->
             <div id="full_history" class="card-body">
               <h5 class="card-title d-flex justify-content-between"><div id="history_title">History</div><i id="clearHistoryButton" title="Clear All History" class="bi bi-trash"></i></h5>
-              <p class="card-text">
+              <!-- <p class="card-text"> -->
                 <div id="history_sidebar" class="list-group">
                   <a href="#a" class="list-group-item list-group-item-action px-1" aria-current="true">
                     <div class="d-flex align-items-center">
@@ -69,7 +69,7 @@
                     </div>
                   </a>
                 </div>
-              </p>
+              <!-- </p> -->
 
             </div>
           </div> 
@@ -112,7 +112,7 @@
                   <i id="favSortTime" title="Sort by Time" class="bi bi-clock"></i>
                 </div>
               </h5>
-              <p class="card-text">
+              <!-- <p class="card-text"> -->
               <div id="favorites_sidebar" class="list-group">
                 <a href="#a" class="list-group-item list-group-item-action px-1" aria-current="true">
                   <div class="d-flex align-items-center">
@@ -130,7 +130,7 @@
                 </a>
               </div>
         
-              </p>
+              <!-- </p> -->
             </div>
           </div>
         </div>

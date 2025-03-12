@@ -12,7 +12,8 @@ db = new class {
     #history = [];
     #historyCallbacks = []; // callbacks for when #history is saved
     #favoritesCallbacks = []; // callbacks for when #favorites is saved
-    #sortFavDescending = true; // the order of the favorites sort feature
+    #sortOrder = "descending"; // the order of the favorites sort feature
+    #sortType = "name"; // the last type of sort conducted
 
     // generic accessors
     //get favoritesKey() { return this.#favoritesKey; } // should not ever need to be accessed outside class
@@ -21,12 +22,13 @@ db = new class {
     get maxHistory() { return this.#maxHistory; }
     get favorites() { return this.#favorites; }
     get history() { return this.#history; }
-    get sortFavDescending() { return this.#sortFavDescending; }
+    get sortOrder() { return this.#sortOrder; }
 
     toggleFavSort() {
-        this.#sortFavDescending = !this.#sortFavDescending;
-        this.#saveFavorites();
-        return this.#sortFavDescending;
+        this.#sortOrder = (this.#sortOrder === "descending" ? "ascending" : "descending");
+        //this.#saveFavorites();
+        this.sortFavorites(this.#sortType, this.#sortOrder);
+        //return this.#sortFavDescending;
     }
 
     // checks whether localStorage is available for use
@@ -65,7 +67,9 @@ db = new class {
         // load the sort order
         if (!localStorage.getItem(this.#sortKey) === null && // if we've saved a sort order before
             !localStorage.getItem(this.#sortKey) === "") {
-            this.#sortFavDescending = (localStorage.getItem(this.#sortKey) === "DESC");
+            var sortData = JSON.parse(localStorage.getItem(this.#sortKey));
+            this.#sortOrder = sortData.sortOrder;
+            this.#sortType = sortData.sortType;
             }
 
         this.#favorites = JSON.parse(localStorage.getItem(this.#favoritesKey));
@@ -112,7 +116,7 @@ db = new class {
         localStorage.setItem(this.#favoritesKey, JSON.stringify(this.#favorites));
 
         // save sort order
-        localStorage.setItem(this.#sortKey, this.#sortFavDescending ? "DESC" : "ASC");
+        localStorage.setItem(this.#sortKey, JSON.stringify({"sortOrder": this.#sortOrder, "sortType": this.#sortType}));
 
         // call all registered callbacks when we save favorites
         for (var cbIndex = 0; cbIndex < this.#favoritesCallbacks.length; cbIndex++) {
@@ -273,6 +277,8 @@ db = new class {
         if (direction !== "ascending" && direction !== "descending") {
             return false;
         }
+
+        this.#sortType = type;
 
         // invert the sorting direction if we're sorting descending
         var directionMult = (direction === "descending" ? 1 : -1);

@@ -8,8 +8,8 @@ const favSortTime = document.getElementById("favSortTime");
 favSortOrder.style.cursor = "pointer";
 favSortName.style.cursor = "pointer";
 favSortTime.style.cursor = "pointer";
-favSortName.addEventListener("click", () => { db.sortFavorites("name", db.sortFavDescending ? "descending" : "ascending") });
-favSortTime.addEventListener("click", () => { db.sortFavorites("time", db.sortFavDescending ? "descending" : "ascending") });
+favSortName.addEventListener("click", () => { db.sortFavorites("name", db.sortOrder) });
+favSortTime.addEventListener("click", () => { db.sortFavorites("time", db.sortOrder) });
 favSortOrder.addEventListener("click", () => { db.toggleFavSort() });
 
 //Function to create favorites bar using array of data
@@ -17,8 +17,8 @@ function createFavoritesBar() {
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
     // set the sort order icon
-    favSortOrder.setAttribute("class", "bi bi-sort-" + (db.sortFavDescending ? "down" : "up"));
-    favSortOrder.setAttribute("title", "Sort " + (db.sortFavDescending ? "Descending" : "Ascending"));
+    favSortOrder.setAttribute("class", "bi bi-sort-" + (db.sortOrder === "descending" ? "down" : "up"));
+    favSortOrder.setAttribute("title", "Sort " + (db.sortOrder === "descending"? "Descending" : "Ascending"));
 
     favoritesSidebar.innerHTML = "";
 
@@ -49,6 +49,9 @@ function createFavoritesBar() {
                         child.textContent = db.favorites[i].animal.characteristics.slogan;
                         if (child.textContent == "") {
                             child.textContent = db.favorites[i].animal.taxonomy.scientific_name;
+                        }
+                        if (child.textContent == "") {
+                            child.textContent = getRelevantCaptions(db.favorites[i].animal);
                         }
                         break;
                         

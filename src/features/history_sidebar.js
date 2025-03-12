@@ -44,6 +44,9 @@ function createHistoryBar(){
                         if (child.textContent == "") {
                             child.textContent = db.history[i].animal.taxonomy.scientific_name;
                         }
+                        if (child.textContent == "") {
+                            child.textContent = getRelevantCaptions(db.history[i].animal);
+                        }
                         break;
                     case "animalDate":
                         child.textContent = new Date(db.history[i].time).toLocaleDateString("en-US", {
@@ -96,7 +99,7 @@ function createHistoryBar(){
 
 function resizeHandler() {
     {
-        if (window.innerWidth > 2000) { // two pane display
+        if (window.innerWidth > 1800) { // two pane display
             tabContainer.hidden = true;
             tabContent.hidden = true;
             document.getElementById("favorites_col").hidden = false;
@@ -104,7 +107,6 @@ function resizeHandler() {
             document.getElementById("favorites_card").appendChild(fullFavorites);
             document.getElementById("history_title").style.visibility = "visible";
             document.getElementById("favorites_title").style.visibility = "visible";
-
         }
         else { // tabbed display
             document.getElementById("history_tab_pane").appendChild(fullHistory);
