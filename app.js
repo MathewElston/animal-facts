@@ -6,8 +6,9 @@ db.registerFavoritesCallback(createFavoritesBar);
 db.registerFavoritesCallback(createHistoryBar);
 db.registerFavoritesCallback(createFavoritesIcon);
 db.registerHistoryCallback(createHistoryBar);
-createHistoryBar();
-createFavoritesBar();
+// createHistoryBar();
+// createFavoritesBar();
+resizeHandler();
 
 // Test
 /* const imagebutton = document.getElementById("picturebutton");
@@ -33,8 +34,8 @@ let animalPicArray;
 // these hold the data for the currently displayed animal and are set at the bottom of createMainCard and used
 // by createFavoritesIcon(), which cant have the arguments passed to it because it's registered as a callback
 // whenever favorites data changes
-let displayedAnimal;
-let displayedPictures;
+let displayedAnimal = null;
+let displayedPictures = null;
 
 const performSearch = async () => {
     const userInput = getAnimalInput("searchInput");

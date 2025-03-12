@@ -1,6 +1,9 @@
 //Create global variables for sidebar element in HTML doc
 const favoritesSidebar = document.getElementById("favorites_sidebar");
+const tabbedFavoritesSidebar = document.getElementById("tabbed_favorites_sidebar");
 const favoritesTemplate = favoritesSidebar.children[0].cloneNode(true);
+
+var activeFavoritesSidebar = favoritesSidebar;
 
 const favSortOrder = document.getElementById("favSortOrder");
 const favSortName = document.getElementById("favSortName");
@@ -12,18 +15,31 @@ favSortName.addEventListener("click", () => { db.sortFavorites("name", db.sortFa
 favSortTime.addEventListener("click", () => { db.sortFavorites("time", db.sortFavDescending ? "descending" : "ascending") });
 favSortOrder.addEventListener("click", () => { db.toggleFavSort() });
 
+// so nice we did it twice
+const favSortOrderTab = document.getElementById("favSortOrderTab");
+const favSortNameTab = document.getElementById("favSortNameTab");
+const favSortTimeTab = document.getElementById("favSortTimeTab");
+favSortOrderTab.style.cursor = "pointer";
+favSortNameTab.style.cursor = "pointer";
+favSortTimeTab.style.cursor = "pointer";
+favSortNameTab.addEventListener("click", () => { db.sortFavorites("name", db.sortFavDescending ? "descending" : "ascending") });
+favSortTimeTab.addEventListener("click", () => { db.sortFavorites("time", db.sortFavDescending ? "descending" : "ascending") });
+favSortOrderTab.addEventListener("click", () => { db.toggleFavSort() });
+
 //Function to create favorites bar using array of data
 function createFavoritesBar() {
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
     // set the sort order icon
-    favSortOrder.setAttribute("class", "bi bi-sort-down" + (db.sortFavDescending ? "-alt" : ""));
+    favSortOrder.setAttribute("class", "bi bi-sort-" + (db.sortFavDescending ? "down" : "up"));
     favSortOrder.setAttribute("title", "Sort " + (db.sortFavDescending ? "Descending" : "Ascending"));
+    favSortOrderTab.setAttribute("class", "bi bi-sort-" + (db.sortFavDescending ? "down" : "up"));
+    favSortOrderTab.setAttribute("title", "Sort " + (db.sortFavDescending ? "Descending" : "Ascending"));
 
-    favoritesSidebar.innerHTML = "";
+    activeFavoritesSidebar.innerHTML = "";
 
     if (db.favorites.length === 0) {
-        favoritesSidebar.textContent = "You dont have any favorites!";
+        activeFavoritesSidebar.textContent = "You dont have any favorites!";
         return;
     }
 
@@ -94,7 +110,7 @@ function createFavoritesBar() {
 
         li.addEventListener('mouseenter', iconHoverIn);
 
-        favoritesSidebar.appendChild(li);
+        activeFavoritesSidebar.appendChild(li);
 
     }
 }

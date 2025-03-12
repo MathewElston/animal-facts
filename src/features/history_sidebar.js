@@ -1,20 +1,30 @@
 //Create global variables for sidebar element in HTML doc
 const historySidebar = document.getElementById("history_sidebar");
+const tabbedHistorySidebar = document.getElementById("tabbed_history_sidebar");
 const historyTemplate = historySidebar.children[0].cloneNode(true);
+const tabContainer = document.getElementById("tab_container");
+const tabContent = document.getElementById("tab_content");
+const fullHistory = document.getElementById("full_history");
 
+var activeHistorySidebar = historySidebar;
 // create the clear history button
 const clearHistoryButton = document.getElementById("clearHistoryButton");
 clearHistoryButton.style.cursor = "pointer";
 clearHistoryButton.addEventListener("click", () => { db.clearHistory(); });
 
+// whatever lmao
+const clearHistoryButtonTab = document.getElementById("clearHistoryButtonTab");
+clearHistoryButtonTab.style.cursor = "pointer";
+clearHistoryButtonTab.addEventListener("click", () => { db.clearHistory(); });
+
 //Function to create history bar using array of data
 function createHistoryBar(){
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
-    historySidebar.innerHTML = "";
+    activeHistorySidebar.innerHTML = "";
 
     if (db.history.length === 0) {
-        historySidebar.textContent = "You dont have any history!";
+        activeHistorySidebar.textContent = "You dont have any history!";
         return;
     }
 
@@ -85,6 +95,33 @@ function createHistoryBar(){
         });
         li.addEventListener('mouseenter', iconHoverIn);
 
-        historySidebar.appendChild(li);
+        activeHistorySidebar.appendChild(li);
     }
 }
+
+function resizeHandler() {
+    {
+        if (window.innerWidth > 2000) { // two pane display
+            tabContainer.hidden = true;
+            tabContent.hidden = true;
+            fullHistory.hidden = false;
+            document.getElementById("favorites_card").hidden = false;
+            activeHistorySidebar = historySidebar;
+            activeFavoritesSidebar = favoritesSidebar;
+
+        }
+        else { // tabbed display
+            fullHistory.hidden = true;
+            tabContainer.hidden = false;
+            tabContent.hidden = false;
+            document.getElementById("favorites_card").hidden = true;
+            activeHistorySidebar = tabbedHistorySidebar;
+            activeFavoritesSidebar = tabbedFavoritesSidebar;
+        }
+        createHistoryBar();
+        createFavoritesBar();
+        //console.log(window.innerWidth);
+    }
+};
+
+window.addEventListener("resize", resizeHandler);
