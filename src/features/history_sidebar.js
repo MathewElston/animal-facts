@@ -1,30 +1,25 @@
 //Create global variables for sidebar element in HTML doc
 const historySidebar = document.getElementById("history_sidebar");
-const tabbedHistorySidebar = document.getElementById("tabbed_history_sidebar");
 const historyTemplate = historySidebar.children[0].cloneNode(true);
-const tabContainer = document.getElementById("tab_container");
-const tabContent = document.getElementById("tab_content");
-const fullHistory = document.getElementById("full_history");
 
-var activeHistorySidebar = historySidebar;
+const tabContainer = document.getElementById("tab_container"); // holds the tabs themselves
+const tabContent = document.getElementById("tab_content"); // holds content the tabs will display
+const fullHistory = document.getElementById("full_history"); // history content that moves around
+const fullFavorites = document.getElementById("full_favorites"); // favorites content that moves around
+
 // create the clear history button
 const clearHistoryButton = document.getElementById("clearHistoryButton");
 clearHistoryButton.style.cursor = "pointer";
 clearHistoryButton.addEventListener("click", () => { db.clearHistory(); });
 
-// whatever lmao
-const clearHistoryButtonTab = document.getElementById("clearHistoryButtonTab");
-clearHistoryButtonTab.style.cursor = "pointer";
-clearHistoryButtonTab.addEventListener("click", () => { db.clearHistory(); });
-
 //Function to create history bar using array of data
 function createHistoryBar(){
     const pexelsFormatting = "?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=50&w=50";
 
-    activeHistorySidebar.innerHTML = "";
+    historySidebar.innerHTML = "";
 
     if (db.history.length === 0) {
-        activeHistorySidebar.textContent = "You dont have any history!";
+        historySidebar.textContent = "You dont have any history!";
         return;
     }
 
@@ -95,7 +90,7 @@ function createHistoryBar(){
         });
         li.addEventListener('mouseenter', iconHoverIn);
 
-        activeHistorySidebar.appendChild(li);
+        historySidebar.appendChild(li);
     }
 }
 
@@ -104,22 +99,22 @@ function resizeHandler() {
         if (window.innerWidth > 2000) { // two pane display
             tabContainer.hidden = true;
             tabContent.hidden = true;
-            fullHistory.hidden = false;
-            document.getElementById("favorites_card").hidden = false;
-            activeHistorySidebar = historySidebar;
-            activeFavoritesSidebar = favoritesSidebar;
+            document.getElementById("favorites_col").hidden = false;
+            document.getElementById("history_card").appendChild(fullHistory);
+            document.getElementById("favorites_card").appendChild(fullFavorites);
+            document.getElementById("history_title").style.visibility = "visible";
+            document.getElementById("favorites_title").style.visibility = "visible";
 
         }
         else { // tabbed display
-            fullHistory.hidden = true;
+            document.getElementById("history_tab_pane").appendChild(fullHistory);
+            document.getElementById("favorites_tab_pane").appendChild(fullFavorites);
             tabContainer.hidden = false;
             tabContent.hidden = false;
-            document.getElementById("favorites_card").hidden = true;
-            activeHistorySidebar = tabbedHistorySidebar;
-            activeFavoritesSidebar = tabbedFavoritesSidebar;
+            document.getElementById("favorites_col").hidden = true;
+            document.getElementById("history_title").style.visibility="hidden";
+            document.getElementById("favorites_title").style.visibility = "hidden";
         }
-        createHistoryBar();
-        createFavoritesBar();
         //console.log(window.innerWidth);
     }
 };

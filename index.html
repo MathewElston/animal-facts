@@ -30,9 +30,9 @@
       <div class="row">
     <!-- history sidebar -->
         <div class="col-xl col-lg-12 pl-5 mb-3">
-          <div class="card">
+          <div class="card" id="history_card">
             <!-- TABS -->
-            <ul class="nav nav-tabs nav-justified " id="tab_container" role="tablist">
+            <ul class="nav nav-tabs nav-justified " id="tab_container" role="tablist" style="margin-left:-1px; margin-right:-1px; margin-top:-1px">
               <li class="nav-item " role="presentation">
                 <button class="nav-link active " id="history_tab" data-bs-toggle="tab" data-bs-target="#history_tab_pane" type="button"
                   role="tab" aria-controls="history_tab_pane" aria-selected="true">History</button>
@@ -44,34 +44,14 @@
             </ul>
             <div id="tab_content" class="tab-content">
               <!-- HISTORY TAB CONTENT -->
-              <div class="tab-pane fade show active list-group" id="history_tab_pane" role="tabpanel" aria-labelledby="history_tab" tabindex="0">
-                <div class="card-body">
-                  <h5 class="card-title d-flex justify-content-between"><div style="visibility:hidden">History</div><i id="clearHistoryButtonTab" title="Clear All History" class="bi bi-trash"></i></h5>
-                  <p class="card-text">
-                    <div id="tabbed_history_sidebar" class="list-group"></div>
-                  </p>
-                </div>
-              </div>
+              <div class="tab-pane fade show active list-group" id="history_tab_pane" role="tabpanel" aria-labelledby="history_tab" tabindex="0"></div>
               <!-- FAVORITES TAB CONTENT -->
-              <div class="tab-pane fade list-group" id="favorites_tab_pane" role="tabpanel" aria-labelledby="favorites_tab" tabindex="0">
-                <div class="card-body">
-                  <h5 class="card-title d-flex justify-content-between">_
-                    <div>
-                      <i id="favSortOrderTab" title="Sort Descending" class="bi bi-sort-down-alt"></i>
-                      <i id="favSortNameTab" title="Sort by Name" class="bi bi-alphabet-uppercase"></i>
-                      <i id="favSortTimeTab" title="Sort by Time" class="bi bi-clock"></i>
-                    </div>
-                  </h5>
-                  <p class="card-text">
-                    <div id="tabbed_favorites_sidebar" class="list-group"></div>
-                  </p>
-                </div>
-              </div>
+              <div class="tab-pane fade list-group" id="favorites_tab_pane" role="tabpanel" aria-labelledby="favorites_tab" tabindex="0"></div>
             </div>
 
             <!-- FULL DISPLAY -->
             <div id="full_history" class="card-body">
-              <h5 class="card-title d-flex justify-content-between">History<i id="clearHistoryButton" title="Clear All History" class="bi bi-trash"></i></h5>
+              <h5 class="card-title d-flex justify-content-between"><div id="history_title">History</div><i id="clearHistoryButton" title="Clear All History" class="bi bi-trash"></i></h5>
               <p class="card-text">
                 <div id="history_sidebar" class="list-group">
                   <a href="#a" class="list-group-item list-group-item-action px-1" aria-current="true">
@@ -122,10 +102,10 @@
    
 
     <!-- Favorites sidebar -->
-        <div class="col-xl-2 col-lg-12 pr-5" id="favorites_card">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title d-flex justify-content-between">Favorites
+        <div class="col-xl-2 col-lg-12 pr-5" id="favorites_col">
+          <div class="card" id="favorites_card">
+            <div id="full_favorites" class="card-body">
+              <h5 class="card-title d-flex justify-content-between"><div id="favorites_title">Favorites</div>
                 <div>
                   <i id="favSortOrder" title="Sort Descending" class="bi bi-sort-down-alt"></i>
                   <i id="favSortName" title="Sort by Name" class="bi bi-alphabet-uppercase"></i>

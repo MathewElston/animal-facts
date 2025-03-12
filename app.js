@@ -6,8 +6,8 @@ db.registerFavoritesCallback(createFavoritesBar);
 db.registerFavoritesCallback(createHistoryBar);
 db.registerFavoritesCallback(createFavoritesIcon);
 db.registerHistoryCallback(createHistoryBar);
-// createHistoryBar();
-// createFavoritesBar();
+createHistoryBar();
+createFavoritesBar();
 resizeHandler();
 
 // Test
