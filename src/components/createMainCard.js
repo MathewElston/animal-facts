@@ -24,7 +24,7 @@ function createMainCard(animal, animalPictures) {
             <div class="col-md-7">
                 <figure>
                 <img src="${imageSource}" class="card-img-top img-fluid rounded-start" 
-                    style="object-fit: cover; max-height: 400px;" alt="text">
+                    style="object-fit: cover; max-height: 650px;" alt="text">
                 <figcaption><small class="text-body-secondary">${photographer}</small></figcaption>
                 </figure>
             </div>
