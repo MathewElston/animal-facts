@@ -8,12 +8,17 @@ function formatString(str) {
 
 // function to generate the HTML for a fact card
 function generateFactCard(facts, sectionTitle, image) {
+  const imageSource =  image?.src?.original || "assets/animal_placeholder.jpg";
+  const photographer = image 
+    ? `Taken by ${image.photographer || "Unknown"} on Pexels.` 
+    : "Image not found on Pexels.";
+
   let html = 
     '<div class="col">' +
       '<div class="card h-100">' +
         '<figure>' +
-          '<img src="'+ image.src.portrait +'" class="card-img-top" alt="...">' +
-          '<figcaption><small class="text-body-secondary">Taken by '+ image.photographer +' on Pexels.</small></figcaption>' +
+          '<img src="'+ imageSource +'" class="card-img-top img-fluid" style="object-fit: cover; " alt="...">' +
+          '<figcaption><small class="text-body-secondary">'+ photographer +'</small></figcaption>' +
         '</figure>' +
         '<div class="card-body">' +
           '<h5 class="card-title">'+ formatString(sectionTitle) +'</h5>' +

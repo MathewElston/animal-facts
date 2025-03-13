@@ -2,7 +2,10 @@
 function createMainCard(animal, animalPictures) {
 
     //get landscape image
-    const imageSource = animalPictures[0].src.landscape;
+    const imageSource = animalPictures[0]?.src?.original || "assets/animal_placeholder.jpg";
+    const photographer = animalPictures[0] 
+    ? `Taken by ${animalPictures[0].photographer || "Unknown"} on Pexels.` 
+    : "Image not found on Pexels.";
 
     //get slogan or/and feature if exists
     let slogan = " ";
@@ -20,8 +23,9 @@ function createMainCard(animal, animalPictures) {
             <div class="row g-0">
             <div class="col-md-7">
                 <figure>
-                <img src="${imageSource}" class="img-fluid rounded-start" alt="text" >
-                <figcaption><small class="text-body-secondary">Taken by ${animalPictures[0].photographer} on Pexels.</small></figcaption>
+                <img src="${imageSource}" class="card-img-top img-fluid rounded-start" 
+                    style="object-fit: cover; max-height: 400px;" alt="text">
+                <figcaption><small class="text-body-secondary">${photographer}</small></figcaption>
                 </figure>
             </div>
             <div class="col-md-5">
