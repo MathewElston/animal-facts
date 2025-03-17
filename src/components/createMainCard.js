@@ -1,7 +1,7 @@
 //if animalPictures goes through the picResultFilter then animalPictures is already animalPictures.photos
 function createMainCard(animal, animalPictures) {
 
-    //get landscape image
+    //get image and photographer credit
     const imageSource = animalPictures[0]?.src?.original || "assets/animal_placeholder.jpg";
     const photographer = animalPictures[0] 
     ? `Taken by ${animalPictures[0].photographer || "Unknown"} on Pexels.` 

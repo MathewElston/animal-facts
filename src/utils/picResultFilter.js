@@ -18,16 +18,16 @@ function forLoopfilter(animalPictures, animalName, common_name, other_names, ani
     }
 }
 
-//get animal and animalPictures objects
+// get animal and animalPictures objects
 async function picResultFilter (animal, animalPictures) {
-    // get all names safely
+    //get all names safely
     const animalName = (animal.name || "").toLowerCase().trim();
     const common_name = (animal.characteristics.common_name || "").toLowerCase().trim();
     const excludeWords = ["boy","boys", "girl","girls", "child", "man", "men", "woman", "women", 
         "people", "person", "pin", "minivan", "beer", "a fairy in white dress", "christmas",
     "two wire fox terriers playfully interact on grass in a sunny garden setting"];
 
-    // make sure other_names is always an array
+    //make sure other_names is always an array
     let other_names = (animal.characteristics['other_name(s)'] || "")
         .toLowerCase()
         .trim()
@@ -41,7 +41,7 @@ async function picResultFilter (animal, animalPictures) {
     forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray, excludeWords);
 
 
-    //if still less than 7  search the api using the scientific_name
+    //if still less than 7 search the api using the scientific_name
     if (animalPicArray.length < 7 && animal.characteristics.scientific_name) {
         animalPictures = await fetchImages("query=" + animal.characteristics.scientific_name);
 
@@ -55,19 +55,13 @@ async function picResultFilter (animal, animalPictures) {
         forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray, excludeWords);
     }
 
-    //if still less than 7 search the api using the animal name with '+' in spaces (this works better than just sending animal.name but not always)
+    //if still less than 7 search the api using the animal name with '+' in spaces 
+    // (this works better than just sending animal.name but not always)
     if (animalPicArray.length < 7) {
         animalPictures = await fetchImages("query=" + (animal.name).replace(/\s+/g, "+").replace("'", ""));
 
         forLoopfilter(animalPictures, animalName, common_name, other_names, animalPicArray, excludeWords);
     }
-
-    // if there still isnt 7 pics fill in the remaining spots with photos from last api call
-   /* if (animalPicArray.length < 7) {
-        for (let i = 0; i < 7; i++){
-            animalPicArray.push(animalPictures.photos[i]);
-        }
-    }*/
 
     return animalPicArray;
 }

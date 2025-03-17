@@ -13,34 +13,35 @@ function generateFactCard(facts, sectionTitle, image) {
     ? `Taken by ${image.photographer || "Unknown"} on Pexels.` 
     : "Image not found on Pexels.";
 
+  //start the html content for the card
   let html = 
-    '<div class="col">' +
-      '<div class="card h-100">' +
-        '<figure>' +
-          '<img src="'+ imageSource +'" class="card-img-top img-fluid" style="object-fit: cover; " alt="...">' +
-          '<figcaption><small class="text-body-secondary">'+ photographer +'</small></figcaption>' +
-        '</figure>' +
-        '<div class="card-body">' +
-          '<h5 class="card-title">'+ formatString(sectionTitle) +'</h5>' +
-          '<p class="card-text">' +
-            '<ul class="list-unstyled">';
+    `<div class="col">
+      <div class="card h-100">
+        <figure>
+          <img src="${imageSource}" class="card-img-top img-fluid" style="object-fit: cover;">
+          <figcaption><small class="text-body-secondary">${photographer}</small></figcaption>
+        </figure>
+        <div class="card-body">
+          <h5 class="card-title">${formatString(sectionTitle)}</h5>
+          <p class="card-text">
+            <ul class="list-unstyled">`;
 
+  //iterate over each fact in the section
   facts.forEach(([fact, value]) => {
     if (fact) {
-      // Normal key-value pairs (e.g., taxonomy, characteristics)
-      html += '<li><strong>'+ formatString(fact) +': </strong>'+ formatString(value) +'</li>';
+      //add normal key-value pairs for taxonomy and characteristics
+      html += `<li><strong>${formatString(fact)}: </strong>${formatString(value)}</li>`;
     } else {
-      // Only value (for locations)
-      html += '<li>' + formatString(value) + '</li>';
+      //add only the values for the locations section
+      html += `<li>${formatString(value)}</li>`;
     }
   });
 
-  //iterate over facts in 
-
-  html += '</ul></p></div>' +
-          '<div class="card-footer"></div>' +
-        '</div>' +
-      '</div>';
+  //add the ending html content
+  html += `</ul></p></div>
+          <div class="card-footer"></div>
+        </div>
+      </div>`;
   
   return html;
 }
@@ -51,7 +52,7 @@ function createFactCards(animal, animalPictures) {
 
   let htmlContent = '';
   let imgCount = 0;
-  //filter out 'name' key
+  //filter out 'name' key to remove the name section
   let sections = Object.keys(animal).filter(section => section !== 'name'); 
 
   for (let i = 0; i < sections.length; i++) {
@@ -63,7 +64,6 @@ function createFactCards(animal, animalPictures) {
       facts = animal[section].map(location => [null, location]);
 
     } else if (section === "characteristics") {
-
       //remove 'slogan' and 'most_distinctive_feature' from the facts (display in main card instead)
       facts = Object.entries(animal[section]).filter(([key]) => 
         key !== "slogan" && key !== "most_distinctive_feature"
@@ -81,13 +81,14 @@ function createFactCards(animal, animalPictures) {
       continue; //skip the rest of the loop for the current section
 
     } else {
-      // For other sections (taxonomy), just process normally
+      //for taxonomy just process normally
       facts = Object.entries(animal[section]);
     }
 
     //create fact cards taxononmy and locations
     htmlContent += generateFactCard(facts, section, animalPictures[++imgCount]);
   }
+  
   //insert the html content
   factCardSection.innerHTML = htmlContent;
 }
